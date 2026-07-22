@@ -2,7 +2,10 @@
 
 from __future__ import annotations
 
+from array import array
 from dataclasses import dataclass
+from math import cos, pi, sin
+from typing import Literal
 
 
 MORSE_CODES = {
@@ -30,6 +33,14 @@ PROSIGNS = {"AR": ".-.-.", "SK": "...-.-", "BT": "-...-"}
 class MorseToken:
     text: str
     code: str
+
+
+@dataclass(frozen=True, slots=True)
+class TimingEvent:
+    kind: Literal["tone", "silence"]
+    start: float
+    duration: float
+    token_index: int | None = None
 
 
 def text_to_tokens(text: str, number_style: str = "long") -> list[MorseToken]:
@@ -63,3 +74,88 @@ def text_to_tokens(text: str, number_style: str = "long") -> list[MorseToken]:
         index += 1
 
     return tokens
+
+
+def build_timeline(
+    tokens: list[MorseToken],
+    character_wpm: float,
+    effective_wpm: float | None = None,
+) -> list[TimingEvent]:
+    """根据 ITU 1:3:7 比例构建音调与静音时间轴。"""
+    if character_wpm <= 0:
+        raise ValueError("字符速度必须大于 0")
+    if effective_wpm is not None and effective_wpm >= character_wpm:
+        raise ValueError("Farnsworth 有效速度必须低于字符速度")
+    if effective_wpm is not None and effective_wpm <= 0:
+        raise ValueError("Farnsworth 有效速度必须大于 0")
+
+    dit = 1.2 / character_wpm
+    spacing_unit = dit
+    if effective_wpm is not None:
+        spacing_unit = (60.0 / effective_wpm - 31.0 * dit) / 19.0
+
+    events: list[TimingEvent] = []
+    cursor = 0.0
+
+    def append(kind: Literal["tone", "silence"], duration: float, token_index=None):
+        nonlocal cursor
+        events.append(TimingEvent(kind, cursor, duration, token_index))
+        cursor += duration
+
+    for token_index, token in enumerate(tokens):
+        if token.text == " ":
+            continue
+        for symbol_index, symbol in enumerate(token.code):
+            append("tone", dit if symbol == "." else 3.0 * dit, token_index)
+            if symbol_index < len(token.code) - 1:
+                append("silence", dit)
+
+        next_index = token_index + 1
+        saw_space = False
+        while next_index < len(tokens) and tokens[next_index].text == " ":
+            saw_space = True
+            next_index += 1
+        if next_index < len(tokens):
+            append("silence", (7.0 if saw_space else 3.0) * spacing_unit)
+
+    return events
+
+
+def render_pcm(
+    events: list[TimingEvent],
+    frequency: float,
+    sample_rate: int = 44_100,
+    amplitude: float = 0.8,
+) -> bytes:
+    """把时间轴渲染为 16 位单声道 PCM，并平滑每段音调的边缘。"""
+    if not 300 <= frequency <= 1200:
+        raise ValueError("音调频率必须在 300 至 1200 Hz 之间")
+    if sample_rate <= 0:
+        raise ValueError("采样率必须大于 0")
+    if not 0 < amplitude <= 1:
+        raise ValueError("振幅必须大于 0 且不超过 1")
+    if not events:
+        return b""
+
+    total_samples = round((events[-1].start + events[-1].duration) * sample_rate)
+    samples = array("h", [0]) * total_samples
+    peak = int(32767 * amplitude)
+    max_fade_samples = round(sample_rate * 0.005)
+
+    for event in events:
+        if event.kind != "tone":
+            continue
+        start = round(event.start * sample_rate)
+        end = round((event.start + event.duration) * sample_rate)
+        count = max(0, end - start)
+        fade_samples = min(max_fade_samples, count // 2)
+        for offset in range(count):
+            envelope = 1.0
+            if fade_samples:
+                edge_distance = min(offset, count - 1 - offset)
+                if edge_distance < fade_samples:
+                    envelope = 0.5 - 0.5 * cos(pi * edge_distance / fade_samples)
+            value = peak * envelope * sin(2.0 * pi * frequency * offset / sample_rate)
+            samples[start + offset] = round(value)
+
+    return samples.tobytes()
