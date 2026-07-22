@@ -33,4 +33,3 @@ def test_generate_until_duration_keeps_complete_groups():
         rng=random.Random(4),
     )
     assert all(len(group) == 5 for group in text.split())
-

@@ -2,9 +2,11 @@
 
 from __future__ import annotations
 
+import csv
 import random
 import re
 import string
+from pathlib import Path
 
 
 # 工信部《业余无线电台呼号编制和核发要求》（设计基线：2024）。
@@ -106,3 +108,36 @@ def is_plausible_callsign(value: str) -> bool:
     normalized = value.strip().upper()
     return any(pattern.fullmatch(normalized) is not None for pattern in COUNTRY_PATTERNS.values())
 
+
+def load_callsigns(path: Path) -> list[str]:
+    """从本地 TXT 或 CSV 导入、过滤并去重呼号。"""
+    path = Path(path)
+    extension = path.suffix.lower()
+    if extension not in {".txt", ".csv"}:
+        raise ValueError("呼号表只支持 TXT 或 CSV 文件")
+
+    if extension == ".txt":
+        candidates = path.read_text(encoding="utf-8-sig").splitlines()
+    else:
+        with path.open("r", encoding="utf-8-sig", newline="") as stream:
+            reader = csv.DictReader(stream)
+            headers = reader.fieldnames or []
+            header_map = {header.strip().lower(): header for header in headers}
+            source_header = next(
+                (header_map[name] for name in ("callsign", "call", "呼号") if name in header_map),
+                None,
+            )
+            if source_header is None:
+                raise ValueError("CSV 文件中找不到 callsign、call 或呼号列")
+            candidates = [row.get(source_header, "") for row in reader]
+
+    result: list[str] = []
+    seen: set[str] = set()
+    for candidate in candidates:
+        normalized = candidate.strip().upper()
+        if normalized not in seen and is_plausible_callsign(normalized):
+            seen.add(normalized)
+            result.append(normalized)
+    if not result:
+        raise ValueError("文件中没有可用的有效呼号")
+    return result
