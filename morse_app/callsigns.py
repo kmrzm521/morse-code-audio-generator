@@ -1,0 +1,108 @@
+"""离线呼号规则与格式校验。"""
+
+from __future__ import annotations
+
+import random
+import re
+import string
+
+
+# 工信部《业余无线电台呼号编制和核发要求》（设计基线：2024）。
+# 值为：分区号、后缀首字母下限、后缀首字母上限。
+CHINA_PROVINCE_RANGES = {
+    "北京": ("1", "A", "X"),
+    "黑龙江": ("2", "A", "H"), "吉林": ("2", "I", "P"), "辽宁": ("2", "Q", "X"),
+    "天津": ("3", "A", "F"), "内蒙古": ("3", "G", "L"),
+    "河北": ("3", "M", "R"), "山西": ("3", "S", "X"),
+    "上海": ("4", "A", "H"), "山东": ("4", "I", "P"), "江苏": ("4", "Q", "X"),
+    "浙江": ("5", "A", "H"), "江西": ("5", "I", "P"), "福建": ("5", "Q", "X"),
+    "安徽": ("6", "A", "H"), "河南": ("6", "I", "P"), "湖北": ("6", "Q", "X"),
+    "湖南": ("7", "A", "H"), "广东": ("7", "I", "P"),
+    "广西": ("7", "Q", "X"), "海南": ("7", "Y", "Z"),
+    "四川": ("8", "A", "F"), "重庆": ("8", "G", "L"),
+    "贵州": ("8", "M", "R"), "云南": ("8", "S", "X"),
+    "陕西": ("9", "A", "F"), "甘肃": ("9", "G", "L"),
+    "宁夏": ("9", "M", "R"), "青海": ("9", "S", "X"),
+    "新疆": ("0", "A", "F"), "西藏": ("0", "G", "L"),
+}
+
+CHINA_STATION_TYPES = frozenset("GHIDABCEFKLR")
+RESERVED_SUFFIXES = frozenset({"SOS", "XXX", "TTT"})
+
+COUNTRY_PATTERNS = {
+    "中国": re.compile(r"B[GHIDABCEFKLR][0-9][A-Z]{2,3}"),
+    "美国": re.compile(r"(?:[KNW]|A[A-L])[0-9][A-Z]{1,3}"),
+    "日本": re.compile(r"(?:J[A-S]|7[J-N])[0-9][A-Z]{1,3}"),
+    "德国": re.compile(r"D[A-R][0-9][A-Z]{1,3}"),
+    "俄罗斯": re.compile(r"(?:R|U[A-Z])[0-9][A-Z]{2,3}"),
+    "英国": re.compile(r"(?:[GM][0-9]|2E[0-9])[A-Z]{2,3}"),
+    "加拿大": re.compile(r"(?:V[A-G]|V[OY])[0-9][A-Z]{2,3}"),
+    "澳大利亚": re.compile(r"VK[0-9][A-Z]{2,3}"),
+}
+
+
+def _letters(rng: random.Random, length: int) -> str:
+    return "".join(rng.choices(string.ascii_uppercase, k=length))
+
+
+def _valid_chinese_suffix(suffix: str) -> bool:
+    return (
+        suffix not in RESERVED_SUFFIXES
+        and not (len(suffix) == 3 and "QOA" <= suffix <= "QUZ")
+    )
+
+
+def generate_chinese_callsign(
+    province: str,
+    station_type: str,
+    rng: random.Random,
+) -> str:
+    """按省级区段生成仅供训练的模拟中国呼号。"""
+    if province not in CHINA_PROVINCE_RANGES:
+        raise ValueError(f"不支持的省份：{province}")
+    station_type = station_type.upper()
+    if station_type not in CHINA_STATION_TYPES:
+        raise ValueError(f"不支持的台站种类：{station_type}")
+
+    district, first_min, first_max = CHINA_PROVINCE_RANGES[province]
+    first_letters = string.ascii_uppercase[
+        string.ascii_uppercase.index(first_min) : string.ascii_uppercase.index(first_max) + 1
+    ]
+    while True:
+        length = rng.choice((2, 3))
+        suffix = rng.choice(first_letters) + _letters(rng, length - 1)
+        if _valid_chinese_suffix(suffix):
+            return f"B{station_type}{district}{suffix}"
+
+
+def generate_global_callsign(country: str, rng: random.Random) -> str:
+    """按八个内置国家的常见格式生成模拟训练呼号。"""
+    if country == "中国":
+        return generate_chinese_callsign(rng.choice(list(CHINA_PROVINCE_RANGES)), "G", rng)
+    if country not in COUNTRY_PATTERNS:
+        raise ValueError(f"不支持的国家：{country}")
+
+    digit = str(rng.randrange(10))
+    suffix = _letters(rng, rng.choice((2, 3)))
+    if country == "美国":
+        prefix = rng.choice(("K", "N", "W", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AI", "AJ", "AK", "AL"))
+    elif country == "日本":
+        prefix = rng.choice(tuple(f"J{letter}" for letter in "ABCDEFGHIJKLMNOPQRS") + tuple(f"7{letter}" for letter in "JKLMN"))
+    elif country == "德国":
+        prefix = "D" + rng.choice("ABCDEFGHIJKLMNOPQR")
+    elif country == "俄罗斯":
+        prefix = rng.choice(("R", "RA", "RU", "UA", "UB"))
+    elif country == "英国":
+        prefix = rng.choice(("G", "M", "2E"))
+    elif country == "加拿大":
+        prefix = rng.choice(("VA", "VE", "VO", "VY"))
+    else:
+        prefix = "VK"
+    return f"{prefix}{digit}{suffix}"
+
+
+def is_plausible_callsign(value: str) -> bool:
+    """检查是否符合任一内置格式；不证明呼号真实存在。"""
+    normalized = value.strip().upper()
+    return any(pattern.fullmatch(normalized) is not None for pattern in COUNTRY_PATTERNS.values())
+
