@@ -8,5 +8,8 @@ version = "6.0.0"
 requires-python = ">=3.13"
 dependencies = ["lameenc==1.8.4"]
 
+[project.optional-dependencies]
+dev = ["pytest==8.4.1", "PyInstaller==6.11.1"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]
