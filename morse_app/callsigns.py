@@ -8,6 +8,8 @@ import re
 import string
 from pathlib import Path
 
+from .callsign_rules import CallsignRule, load_global_rules
+
 
 # 工信部《业余无线电台呼号编制和核发要求》（设计基线：2024）。
 # 值为：分区号、后缀首字母下限、后缀首字母上限。
@@ -40,6 +42,16 @@ COUNTRY_PATTERNS = {
     "英国": re.compile(r"(?:[GM][0-9]|2E[0-9])[A-Z]{2,3}"),
     "加拿大": re.compile(r"(?:V[A-G]|V[OY])[0-9][A-Z]{2,3}"),
     "澳大利亚": re.compile(r"VK[0-9][A-Z]{2,3}"),
+}
+
+_COUNTRY_ENTITY_IDS = {
+    "美国": 291,
+    "日本": 339,
+    "德国": 230,
+    "俄罗斯": 54,
+    "英国": 223,
+    "加拿大": 1,
+    "澳大利亚": 150,
 }
 
 
@@ -78,35 +90,43 @@ def generate_chinese_callsign(
 
 
 def generate_global_callsign(country: str, rng: random.Random) -> str:
-    """按八个内置国家的常见格式生成模拟训练呼号。"""
+    """按开放许可的全球实体前缀快照生成标准模拟呼号。"""
     if country == "中国":
         return generate_chinese_callsign(rng.choice(list(CHINA_PROVINCE_RANGES)), "G", rng)
-    if country not in COUNTRY_PATTERNS:
+
+    rules = load_global_rules().entities
+    selected: CallsignRule | None = next(
+        (rule for rule in rules if rule.entity == country),
+        None,
+    )
+    if selected is None and country in _COUNTRY_ENTITY_IDS:
+        expected_id = _COUNTRY_ENTITY_IDS[country]
+        selected = next(
+            (
+                rule
+                for rule in rules
+                if rule.entity_id == expected_id
+            ),
+            None,
+        )
+    if selected is None:
         raise ValueError(f"不支持的国家：{country}")
 
-    digit = str(rng.randrange(10))
+    prefix = rng.choice(selected.prefixes)
+    digit = "" if any(character.isdigit() for character in prefix) else str(rng.randrange(10))
     suffix = _letters(rng, rng.choice((2, 3)))
-    if country == "美国":
-        prefix = rng.choice(("K", "N", "W", "AA", "AB", "AC", "AD", "AE", "AF", "AG", "AI", "AJ", "AK", "AL"))
-    elif country == "日本":
-        prefix = rng.choice(tuple(f"J{letter}" for letter in "ABCDEFGHIJKLMNOPQRS") + tuple(f"7{letter}" for letter in "JKLMN"))
-    elif country == "德国":
-        prefix = "D" + rng.choice("ABCDEFGHIJKLMNOPQR")
-    elif country == "俄罗斯":
-        prefix = rng.choice(("R", "RA", "RU", "UA", "UB"))
-    elif country == "英国":
-        prefix = rng.choice(("G", "M", "2E"))
-    elif country == "加拿大":
-        prefix = rng.choice(("VA", "VE", "VO", "VY"))
-    else:
-        prefix = "VK"
     return f"{prefix}{digit}{suffix}"
 
 
 def is_plausible_callsign(value: str) -> bool:
-    """检查是否符合任一内置格式；不证明呼号真实存在。"""
+    """检查是否符合任一内置前缀规则；不证明呼号真实存在。"""
     normalized = value.strip().upper()
-    return any(pattern.fullmatch(normalized) is not None for pattern in COUNTRY_PATTERNS.values())
+    if any(pattern.fullmatch(normalized) is not None for pattern in COUNTRY_PATTERNS.values()):
+        return True
+    return any(
+        re.fullmatch(rule.prefix_regex, normalized) is not None
+        for rule in load_global_rules().entities
+    )
 
 
 def load_callsigns(path: Path) -> list[str]:

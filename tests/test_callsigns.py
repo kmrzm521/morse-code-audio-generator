@@ -10,6 +10,7 @@ from morse_app.callsigns import (
     is_plausible_callsign,
     load_callsigns,
 )
+from morse_app.callsign_rules import global_entity_names, load_global_rules
 
 
 @pytest.mark.parametrize(
@@ -92,3 +93,30 @@ def test_rejects_file_without_usable_callsigns(tmp_path: Path):
     path.write_text("not a call\n", encoding="utf-8")
     with pytest.raises(ValueError, match="有效呼号"):
         load_callsigns(path)
+
+
+def test_global_rules_cover_current_dxcc_entities():
+    names = global_entity_names()
+    assert len(names) == 340
+    assert all(re.search(r"[\u4e00-\u9fff]", name) for name in names)
+    assert len(set(names)) == len(names)
+
+
+def test_global_rules_include_source_version():
+    rules = load_global_rules()
+    assert rules.version == "2020-02"
+    assert "Apache" in rules.license_name
+
+
+def test_every_entity_generates_ascii_callsign():
+    for name in global_entity_names():
+        value = generate_global_callsign(name, random.Random(7))
+        assert re.fullmatch(r"[A-Z0-9/]+", value), (name, value)
+
+
+def test_seeded_global_callsign_is_repeatable():
+    name = global_entity_names()[20]
+    assert generate_global_callsign(name, random.Random(9)) == generate_global_callsign(
+        name,
+        random.Random(9),
+    )

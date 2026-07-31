@@ -1,0 +1,3300 @@
+{
+  "version": "2020-02",
+  "license_name": "Apache-2.0",
+  "source_url": "https://github.com/k0swe/dxcc-json",
+  "source_note_zh": "全球实体与前缀来自 dxcc-json 的 2020 年 2 月开放许可快照，仅用于标准模拟呼号，不代表真实签发。",
+  "entities": [
+    {
+      "id": 306,
+      "name_zh": "不丹",
+      "prefixes": [
+        "A5"
+      ],
+      "prefix_regex": "^A5[A-Z0-9/]*$"
+    },
+    {
+      "id": 511,
+      "name_zh": "东帝汶",
+      "prefixes": [
+        "4W"
+      ],
+      "prefix_regex": "^4W[A-Z0-9/]*$"
+    },
+    {
+      "id": 152,
+      "name_zh": "中国澳门特别行政区",
+      "prefixes": [
+        "XX9"
+      ],
+      "prefix_regex": "^XX9[A-Z0-9/]*$"
+    },
+    {
+      "id": 321,
+      "name_zh": "中国香港特别行政区",
+      "prefixes": [
+        "VR"
+      ],
+      "prefix_regex": "^VR[A-Z0-9/]*$"
+    },
+    {
+      "id": 506,
+      "name_zh": "中国（BS7）",
+      "prefixes": [
+        "BS7"
+      ],
+      "prefix_regex": "^BS7[A-Z0-9/]*$"
+    },
+    {
+      "id": 318,
+      "name_zh": "中国（B）",
+      "prefixes": [
+        "B"
+      ],
+      "prefix_regex": "^B[A-Z0-9/]*$"
+    },
+    {
+      "id": 408,
+      "name_zh": "中非共和国",
+      "prefixes": [
+        "TL"
+      ],
+      "prefix_regex": "^TL[A-Z0-9/]*$"
+    },
+    {
+      "id": 221,
+      "name_zh": "丹麦",
+      "prefixes": [
+        "OU",
+        "OV",
+        "OW",
+        "OZ",
+        "5P",
+        "5Q"
+      ],
+      "prefix_regex": "^(O[U-WZ]|5[P-Q])[A-Z0-9/]*$"
+    },
+    {
+      "id": 288,
+      "name_zh": "乌克兰",
+      "prefixes": [
+        "UR",
+        "US",
+        "UT",
+        "UU",
+        "UV",
+        "UW",
+        "UX",
+        "UY",
+        "UZ",
+        "EM",
+        "EN",
+        "EO"
+      ],
+      "prefix_regex": "^(U[R-Z]|E[M-O])[A-Z0-9/]*$"
+    },
+    {
+      "id": 292,
+      "name_zh": "乌兹别克斯坦",
+      "prefixes": [
+        "UJ",
+        "UK",
+        "UL",
+        "UM"
+      ],
+      "prefix_regex": "^U[J-M][A-Z0-9/]*$"
+    },
+    {
+      "id": 286,
+      "name_zh": "乌干达",
+      "prefixes": [
+        "5X"
+      ],
+      "prefix_regex": "^5X[A-Z0-9/]*$"
+    },
+    {
+      "id": 144,
+      "name_zh": "乌拉圭",
+      "prefixes": [
+        "CV",
+        "CW",
+        "CX"
+      ],
+      "prefix_regex": "^C[V-X][A-Z0-9/]*$"
+    },
+    {
+      "id": 410,
+      "name_zh": "乍得",
+      "prefixes": [
+        "TT"
+      ],
+      "prefix_regex": "^TT[A-Z0-9/]*$"
+    },
+    {
+      "id": 492,
+      "name_zh": "也门",
+      "prefixes": [
+        "7O"
+      ],
+      "prefix_regex": "^7O[A-Z0-9/]*$"
+    },
+    {
+      "id": 14,
+      "name_zh": "亚美尼亚",
+      "prefixes": [
+        "EK"
+      ],
+      "prefix_regex": "^EK[A-Z0-9/]*$"
+    },
+    {
+      "id": 336,
+      "name_zh": "以色列",
+      "prefixes": [
+        "4X",
+        "4Z"
+      ],
+      "prefix_regex": "^4[XZ][A-Z0-9/]*$"
+    },
+    {
+      "id": 333,
+      "name_zh": "伊拉克",
+      "prefixes": [
+        "YI"
+      ],
+      "prefix_regex": "^YI[A-Z0-9/]*$"
+    },
+    {
+      "id": 330,
+      "name_zh": "伊朗",
+      "prefixes": [
+        "EP",
+        "EQ"
+      ],
+      "prefix_regex": "^E[PQ][A-Z0-9/]*$"
+    },
+    {
+      "id": 66,
+      "name_zh": "伯利兹",
+      "prefixes": [
+        "V3"
+      ],
+      "prefix_regex": "^V3[A-Z0-9/]*$"
+    },
+    {
+      "id": 409,
+      "name_zh": "佛得角",
+      "prefixes": [
+        "D4"
+      ],
+      "prefix_regex": "^D4[A-Z0-9/]*$"
+    },
+    {
+      "id": 61,
+      "name_zh": "俄罗斯（R1/F）",
+      "prefixes": [
+        "R1/F"
+      ],
+      "prefix_regex": "^R1/F[A-Z0-9/]*$"
+    },
+    {
+      "id": 15,
+      "name_zh": "俄罗斯（UA0）",
+      "prefixes": [
+        "UA0",
+        "UA8",
+        "UA9",
+        "UB0",
+        "UB8",
+        "UB9",
+        "UC0",
+        "UC8",
+        "UC9",
+        "UD0",
+        "UD8",
+        "UD9",
+        "UE0",
+        "UE8",
+        "UE9",
+        "UF0",
+        "UF8",
+        "UF9",
+        "UG0",
+        "UG8",
+        "UG9",
+        "UH0",
+        "UH8",
+        "UH9",
+        "UI0",
+        "UI8",
+        "UI9",
+        "RA",
+        "RB",
+        "RC",
+        "RD",
+        "RE",
+        "RF",
+        "RG",
+        "RH",
+        "RI",
+        "RJ",
+        "RK",
+        "RL",
+        "RM",
+        "RN",
+        "RO",
+        "RP",
+        "RQ",
+        "RR",
+        "RS",
+        "RT",
+        "RU",
+        "RV",
+        "RW",
+        "RX",
+        "RY",
+        "RZ"
+      ],
+      "prefix_regex": "^(U[A-I][089]|R[A-Z089])[A-Z089/]*$"
+    },
+    {
+      "id": 54,
+      "name_zh": "俄罗斯（UA1）",
+      "prefixes": [
+        "UA1",
+        "UA2",
+        "UA3",
+        "UA4",
+        "UA5",
+        "UA6",
+        "UA7",
+        "UB1",
+        "UB2",
+        "UB3",
+        "UB4",
+        "UB5",
+        "UB6",
+        "UB7",
+        "UC1",
+        "UC2",
+        "UC3",
+        "UC4",
+        "UC5",
+        "UC6",
+        "UC7",
+        "UD1",
+        "UD2",
+        "UD3",
+        "UD4",
+        "UD5",
+        "UD6",
+        "UD7",
+        "UE1",
+        "UE2",
+        "UE3",
+        "UE4",
+        "UE5",
+        "UE6",
+        "UE7",
+        "UF1",
+        "UF2",
+        "UF3",
+        "UF4",
+        "UF5",
+        "UF6",
+        "UF7",
+        "UG1",
+        "UG2",
+        "UG3",
+        "UG4",
+        "UG5",
+        "UG6",
+        "UG7",
+        "UH1",
+        "UH2",
+        "UH3",
+        "UH4",
+        "UH5",
+        "UH6",
+        "UH7",
+        "UI1",
+        "UI2",
+        "UI3",
+        "UI4",
+        "UI5",
+        "UI6",
+        "UI7",
+        "RA",
+        "RB",
+        "RC",
+        "RD",
+        "RE",
+        "RF",
+        "RG",
+        "RH",
+        "RI",
+        "RJ",
+        "RK",
+        "RL",
+        "RM",
+        "RN",
+        "RO",
+        "RP",
+        "RQ",
+        "RR",
+        "RS",
+        "RT",
+        "RU",
+        "RV",
+        "RW",
+        "RX",
+        "RY",
+        "RZ"
+      ],
+      "prefix_regex": "^(U[A-I][1-7]|R[A-Z0-7])[A-Z0-7/]*$"
+    },
+    {
+      "id": 126,
+      "name_zh": "俄罗斯（UA2）",
+      "prefixes": [
+        "UA2",
+        "RA2"
+      ],
+      "prefix_regex": "^[UR]A2[A-Z0-9/]*$"
+    },
+    {
+      "id": 212,
+      "name_zh": "保加利亚",
+      "prefixes": [
+        "LZ"
+      ],
+      "prefix_regex": "^LZ[A-Z0-9/]*$"
+    },
+    {
+      "id": 497,
+      "name_zh": "克罗地亚",
+      "prefixes": [
+        "9A"
+      ],
+      "prefix_regex": "^9A[A-Z0-9/]*$"
+    },
+    {
+      "id": 103,
+      "name_zh": "关岛",
+      "prefixes": [
+        "KH2"
+      ],
+      "prefix_regex": "^KH2[A-Z0-9/]*$"
+    },
+    {
+      "id": 422,
+      "name_zh": "冈比亚",
+      "prefixes": [
+        "C5"
+      ],
+      "prefix_regex": "^C5[A-Z0-9/]*$"
+    },
+    {
+      "id": 242,
+      "name_zh": "冰岛",
+      "prefixes": [
+        "TF"
+      ],
+      "prefix_regex": "^TF[A-Z0-9/]*$"
+    },
+    {
+      "id": 107,
+      "name_zh": "几内亚",
+      "prefixes": [
+        "3X"
+      ],
+      "prefix_regex": "^3X[A-Z0-9/]*$"
+    },
+    {
+      "id": 109,
+      "name_zh": "几内亚比绍",
+      "prefixes": [
+        "J5"
+      ],
+      "prefix_regex": "^J5[A-Z0-9/]*$"
+    },
+    {
+      "id": 251,
+      "name_zh": "列支敦士登",
+      "prefixes": [
+        "HB0"
+      ],
+      "prefix_regex": "^HB0[A-Z0-9/]*$"
+    },
+    {
+      "id": 412,
+      "name_zh": "刚果（布）",
+      "prefixes": [
+        "TN"
+      ],
+      "prefix_regex": "^TN[A-Z0-9/]*$"
+    },
+    {
+      "id": 414,
+      "name_zh": "刚果（金）",
+      "prefixes": [
+        "9Q",
+        "9R",
+        "9S",
+        "9T"
+      ],
+      "prefix_regex": "^9[Q-T][A-Z0-9/]*$"
+    },
+    {
+      "id": 436,
+      "name_zh": "利比亚",
+      "prefixes": [
+        "5A"
+      ],
+      "prefix_regex": "^5A[A-Z0-9/]*$"
+    },
+    {
+      "id": 434,
+      "name_zh": "利比里亚",
+      "prefixes": [
+        "EL"
+      ],
+      "prefix_regex": "^EL[A-Z0-9/]*$"
+    },
+    {
+      "id": 1,
+      "name_zh": "加拿大（CF）",
+      "prefixes": [
+        "CF",
+        "CG",
+        "CH",
+        "CI",
+        "CJ",
+        "CK",
+        "VA",
+        "VB",
+        "VC",
+        "VD",
+        "VE",
+        "VF",
+        "VG",
+        "VO",
+        "VY",
+        "XJ",
+        "XK",
+        "XL",
+        "XM",
+        "XN",
+        "XO"
+      ],
+      "prefix_regex": "^(V[A-GOY]|X[J-KL-O]|C[F-K])[A-Z0-9/]*$"
+    },
+    {
+      "id": 211,
+      "name_zh": "加拿大（CY0）",
+      "prefixes": [
+        "CY0"
+      ],
+      "prefix_regex": "^CY0[A-Z0-9/]*$"
+    },
+    {
+      "id": 252,
+      "name_zh": "加拿大（CY9）",
+      "prefixes": [
+        "CY9"
+      ],
+      "prefix_regex": "^CY9[A-Z0-9/]*$"
+    },
+    {
+      "id": 424,
+      "name_zh": "加纳",
+      "prefixes": [
+        "9G"
+      ],
+      "prefix_regex": "^9G[A-Z0-9/]*$"
+    },
+    {
+      "id": 420,
+      "name_zh": "加蓬",
+      "prefixes": [
+        "TR"
+      ],
+      "prefix_regex": "^TR[A-Z0-9/]*$"
+    },
+    {
+      "id": 239,
+      "name_zh": "匈牙利",
+      "prefixes": [
+        "HA",
+        "HG"
+      ],
+      "prefix_regex": "^H[AG][A-Z0-9/]*$"
+    },
+    {
+      "id": 265,
+      "name_zh": "北爱尔兰",
+      "prefixes": [
+        "GI",
+        "GN",
+        "2I"
+      ],
+      "prefix_regex": "^(G[IN][A-Z0-9/]*|2I[A-Z0-9/]*)"
+    },
+    {
+      "id": 502,
+      "name_zh": "北马其顿",
+      "prefixes": [
+        "Z3"
+      ],
+      "prefix_regex": "^Z3[A-Z0-9/]*$"
+    },
+    {
+      "id": 166,
+      "name_zh": "北马里亚纳群岛",
+      "prefixes": [
+        "KH0"
+      ],
+      "prefix_regex": "^KH0[A-Z0-9/]*$"
+    },
+    {
+      "id": 13,
+      "name_zh": "南极洲（CE9）",
+      "prefixes": [
+        "CE9",
+        "KC4"
+      ],
+      "prefix_regex": "^(CE9|KC4)[A-Z0-9/]*$"
+    },
+    {
+      "id": 238,
+      "name_zh": "南极洲（VP8，实体238）",
+      "prefixes": [
+        "VP8",
+        "LU"
+      ],
+      "prefix_regex": "^(VP8|LU)[A-Z0-9/]*$"
+    },
+    {
+      "id": 241,
+      "name_zh": "南极洲（VP8，实体241）",
+      "prefixes": [
+        "VP8",
+        "LU",
+        "CE9",
+        "HF0",
+        "4K1"
+      ],
+      "prefix_regex": "^(VP8|LU|CE9|HF0|4K1)[A-Z0-9/]*$"
+    },
+    {
+      "id": 247,
+      "name_zh": "南沙群岛（1S）",
+      "prefixes": [
+        "1S"
+      ],
+      "prefix_regex": ""
+    },
+    {
+      "id": 521,
+      "name_zh": "南苏丹",
+      "prefixes": [
+        "Z8"
+      ],
+      "prefix_regex": "^Z8[A-Z0-9/]*$"
+    },
+    {
+      "id": 462,
+      "name_zh": "南非（ZR）",
+      "prefixes": [
+        "ZR",
+        "ZS",
+        "ZT",
+        "ZU"
+      ],
+      "prefix_regex": "^Z[R-U][A-Z0-9/]*$"
+    },
+    {
+      "id": 201,
+      "name_zh": "南非（ZS8）",
+      "prefixes": [
+        "ZS8"
+      ],
+      "prefix_regex": "^ZS8[A-Z0-9/]*$"
+    },
+    {
+      "id": 402,
+      "name_zh": "博茨瓦纳",
+      "prefixes": [
+        "A2"
+      ],
+      "prefix_regex": "^A2[A-Z0-9/]*$"
+    },
+    {
+      "id": 376,
+      "name_zh": "卡塔尔",
+      "prefixes": [
+        "A7"
+      ],
+      "prefix_regex": "^A7[A-Z0-9/]*$"
+    },
+    {
+      "id": 454,
+      "name_zh": "卢旺达",
+      "prefixes": [
+        "9X"
+      ],
+      "prefix_regex": "^9X[A-Z0-9/]*$"
+    },
+    {
+      "id": 254,
+      "name_zh": "卢森堡",
+      "prefixes": [
+        "LX"
+      ],
+      "prefix_regex": "^LX[A-Z0-9/]*$"
+    },
+    {
+      "id": 327,
+      "name_zh": "印度尼西亚",
+      "prefixes": [
+        "YB",
+        "YC",
+        "YD",
+        "YE",
+        "YF",
+        "YG",
+        "YH",
+        "8A",
+        "8B",
+        "8C",
+        "8D",
+        "8E",
+        "8F",
+        "8G",
+        "8H",
+        "8I"
+      ],
+      "prefix_regex": "^(Y[B-H]|8[A-I])[A-Z0-9/]*$"
+    },
+    {
+      "id": 324,
+      "name_zh": "印度（AT）",
+      "prefixes": [
+        "AT",
+        "AU",
+        "VU"
+      ],
+      "prefix_regex": "^AT|AU|VU[A-Z0-9/]*$"
+    },
+    {
+      "id": 11,
+      "name_zh": "印度（VU4）",
+      "prefixes": [
+        "VU4"
+      ],
+      "prefix_regex": "^VU4[A-Z0-9/]*$"
+    },
+    {
+      "id": 142,
+      "name_zh": "印度（VU7）",
+      "prefixes": [
+        "VU7"
+      ],
+      "prefix_regex": "^VU7[A-Z0-9/]*$"
+    },
+    {
+      "id": 76,
+      "name_zh": "危地马拉",
+      "prefixes": [
+        "TG",
+        "TD"
+      ],
+      "prefix_regex": "^T[GD][A-Z0-9/]*$"
+    },
+    {
+      "id": 71,
+      "name_zh": "厄瓜多尔（HC8）",
+      "prefixes": [
+        "HC8",
+        "HD8"
+      ],
+      "prefix_regex": "^H[CD]8[A-Z0-9/]*$"
+    },
+    {
+      "id": 120,
+      "name_zh": "厄瓜多尔（HC）",
+      "prefixes": [
+        "HC",
+        "HD"
+      ],
+      "prefix_regex": "^H[CD][A-Z0-9/]*$"
+    },
+    {
+      "id": 51,
+      "name_zh": "厄立特里亚",
+      "prefixes": [
+        "E3"
+      ],
+      "prefix_regex": "^E3[A-Z0-9/]*$"
+    },
+    {
+      "id": 384,
+      "name_zh": "叙利亚",
+      "prefixes": [
+        "YK"
+      ],
+      "prefix_regex": "^YK[A-Z0-9/]*$"
+    },
+    {
+      "id": 70,
+      "name_zh": "古巴",
+      "prefixes": [
+        "CL",
+        "CM",
+        "CO",
+        "T4"
+      ],
+      "prefix_regex": "^C[LMO]|T4[A-Z0-9/]*$"
+    },
+    {
+      "id": 386,
+      "name_zh": "台湾（BU）",
+      "prefixes": [
+        "BU",
+        "BV",
+        "BW",
+        "BX"
+      ],
+      "prefix_regex": "^B[U-X][A-Z0-9/]*$"
+    },
+    {
+      "id": 505,
+      "name_zh": "台湾（BV9P）",
+      "prefixes": [
+        "BV9P"
+      ],
+      "prefix_regex": "^BV9P[A-Z0-9/]*$"
+    },
+    {
+      "id": 135,
+      "name_zh": "吉尔吉斯斯坦",
+      "prefixes": [
+        "EX"
+      ],
+      "prefix_regex": "^EX[A-Z0-9/]*$"
+    },
+    {
+      "id": 382,
+      "name_zh": "吉布提",
+      "prefixes": [
+        "J2"
+      ],
+      "prefix_regex": "^J2[A-Z0-9/]*$"
+    },
+    {
+      "id": 130,
+      "name_zh": "哈萨克斯坦",
+      "prefixes": [
+        "UN",
+        "UO",
+        "UP",
+        "UQ"
+      ],
+      "prefix_regex": "^U[N-Q][A-Z0-9/]*$"
+    },
+    {
+      "id": 116,
+      "name_zh": "哥伦比亚（HJ）",
+      "prefixes": [
+        "HJ",
+        "HK",
+        "5J",
+        "5K"
+      ],
+      "prefix_regex": "^(H[JK]|5[JK])[A-Z0-9/]*$"
+    },
+    {
+      "id": 161,
+      "name_zh": "哥伦比亚（HK0，实体161）",
+      "prefixes": [
+        "HK0"
+      ],
+      "prefix_regex": "^HK0[A-Z0-9/]*$"
+    },
+    {
+      "id": 216,
+      "name_zh": "哥伦比亚（HK0，实体216）",
+      "prefixes": [
+        "HK0"
+      ],
+      "prefix_regex": "^HK0[A-Z0-9/]*$"
+    },
+    {
+      "id": 37,
+      "name_zh": "哥斯达黎加（TI9）",
+      "prefixes": [
+        "TI9"
+      ],
+      "prefix_regex": "^TI9[A-Z0-9/]*$"
+    },
+    {
+      "id": 308,
+      "name_zh": "哥斯达黎加（TI）",
+      "prefixes": [
+        "TI",
+        "TE"
+      ],
+      "prefix_regex": "^T[IE][A-Z0-9/]*$"
+    },
+    {
+      "id": 406,
+      "name_zh": "喀麦隆",
+      "prefixes": [
+        "TJ"
+      ],
+      "prefix_regex": "^TJ[A-Z0-9/]*$"
+    },
+    {
+      "id": 282,
+      "name_zh": "图瓦卢",
+      "prefixes": [
+        "T2"
+      ],
+      "prefix_regex": "^T2[A-Z0-9/]*$"
+    },
+    {
+      "id": 280,
+      "name_zh": "土库曼斯坦",
+      "prefixes": [
+        "EZ"
+      ],
+      "prefix_regex": "^EZ[A-Z0-9/]*$"
+    },
+    {
+      "id": 390,
+      "name_zh": "土耳其",
+      "prefixes": [
+        "TA",
+        "TB",
+        "TC",
+        "YM"
+      ],
+      "prefix_regex": "^T[A-C]|YM[A-Z0-9/]*$"
+    },
+    {
+      "id": 97,
+      "name_zh": "圣卢西亚",
+      "prefixes": [
+        "J6"
+      ],
+      "prefix_regex": "^J6[A-Z0-9/]*$"
+    },
+    {
+      "id": 249,
+      "name_zh": "圣基茨和尼维斯",
+      "prefixes": [
+        "V4"
+      ],
+      "prefix_regex": "^V4[A-Z0-9/]*$"
+    },
+    {
+      "id": 219,
+      "name_zh": "圣多美和普林西比",
+      "prefixes": [
+        "S9"
+      ],
+      "prefix_regex": "^S9[A-Z0-9/]*$"
+    },
+    {
+      "id": 98,
+      "name_zh": "圣文森特和格林纳丁斯",
+      "prefixes": [
+        "J8"
+      ],
+      "prefix_regex": "^J8[A-Z0-9/]*$"
+    },
+    {
+      "id": 277,
+      "name_zh": "圣皮埃尔和密克隆群岛",
+      "prefixes": [
+        "FP"
+      ],
+      "prefix_regex": "^FP[A-Z0-9/]*$"
+    },
+    {
+      "id": 35,
+      "name_zh": "圣诞岛",
+      "prefixes": [
+        "VK9X"
+      ],
+      "prefix_regex": "^VK9X[A-Z0-9/]*$"
+    },
+    {
+      "id": 250,
+      "name_zh": "圣赫勒拿（ZD7）",
+      "prefixes": [
+        "ZD7"
+      ],
+      "prefix_regex": "^ZD7[A-Z0-9/]*$"
+    },
+    {
+      "id": 205,
+      "name_zh": "圣赫勒拿（ZD8）",
+      "prefixes": [
+        "ZD8"
+      ],
+      "prefix_regex": "^ZD8[A-Z0-9/]*$"
+    },
+    {
+      "id": 274,
+      "name_zh": "圣赫勒拿（ZD9）",
+      "prefixes": [
+        "ZD9"
+      ],
+      "prefix_regex": "^ZD9[A-Z0-9/]*$"
+    },
+    {
+      "id": 278,
+      "name_zh": "圣马力诺",
+      "prefixes": [
+        "T7"
+      ],
+      "prefix_regex": "^T7[A-Z0-9/]*$"
+    },
+    {
+      "id": 129,
+      "name_zh": "圭亚那",
+      "prefixes": [
+        "8R"
+      ],
+      "prefix_regex": "^8R[A-Z0-9/]*$"
+    },
+    {
+      "id": 470,
+      "name_zh": "坦桑尼亚",
+      "prefixes": [
+        "5H",
+        "5I"
+      ],
+      "prefix_regex": "^5[HI][A-Z0-9/]*$"
+    },
+    {
+      "id": 478,
+      "name_zh": "埃及",
+      "prefixes": [
+        "SU"
+      ],
+      "prefix_regex": "^SU[A-Z0-9/]*$"
+    },
+    {
+      "id": 53,
+      "name_zh": "埃塞俄比亚",
+      "prefixes": [
+        "ET"
+      ],
+      "prefix_regex": "^ET[A-Z0-9/]*$"
+    },
+    {
+      "id": 301,
+      "name_zh": "基里巴斯（T30）",
+      "prefixes": [
+        "T30"
+      ],
+      "prefix_regex": "^T30[A-Z0-9/]*$"
+    },
+    {
+      "id": 31,
+      "name_zh": "基里巴斯（T31）",
+      "prefixes": [
+        "T31"
+      ],
+      "prefix_regex": "^T31[A-Z0-9/]*$"
+    },
+    {
+      "id": 48,
+      "name_zh": "基里巴斯（T32）",
+      "prefixes": [
+        "T32"
+      ],
+      "prefix_regex": "^T32[A-Z0-9/]*$"
+    },
+    {
+      "id": 490,
+      "name_zh": "基里巴斯（T33）",
+      "prefixes": [
+        "T33"
+      ],
+      "prefix_regex": "^T33[A-Z0-9/]*$"
+    },
+    {
+      "id": 262,
+      "name_zh": "塔吉克斯坦",
+      "prefixes": [
+        "EY"
+      ],
+      "prefix_regex": "^EY[A-Z0-9/]*$"
+    },
+    {
+      "id": 456,
+      "name_zh": "塞内加尔",
+      "prefixes": [
+        "6V",
+        "6W"
+      ],
+      "prefix_regex": "^6[VW][A-Z0-9/]*$"
+    },
+    {
+      "id": 296,
+      "name_zh": "塞尔维亚",
+      "prefixes": [
+        "YT",
+        "YU",
+        "4N"
+      ],
+      "prefix_regex": "^(Y[TU][A-Z0-9/]*|4N[A-Z0-9/]*)"
+    },
+    {
+      "id": 458,
+      "name_zh": "塞拉利昂",
+      "prefixes": [
+        "9L"
+      ],
+      "prefix_regex": "^9L[A-Z0-9/]*$"
+    },
+    {
+      "id": 215,
+      "name_zh": "塞浦路斯",
+      "prefixes": [
+        "5B",
+        "C4",
+        "P3"
+      ],
+      "prefix_regex": "^(5B|C4|P3)[A-Z0-9/]*$"
+    },
+    {
+      "id": 379,
+      "name_zh": "塞舌尔",
+      "prefixes": [
+        "S7"
+      ],
+      "prefix_regex": "^S7[A-Z0-9/]*$"
+    },
+    {
+      "id": 204,
+      "name_zh": "墨西哥（XA4）",
+      "prefixes": [
+        "XA4",
+        "XB4",
+        "XC4",
+        "XD4",
+        "XE4",
+        "XF4",
+        "XG4",
+        "XH4",
+        "XI4"
+      ],
+      "prefix_regex": "^X[A-I]4[A-Z0-9/]*$"
+    },
+    {
+      "id": 50,
+      "name_zh": "墨西哥（XA）",
+      "prefixes": [
+        "XA",
+        "XB",
+        "XC",
+        "XD",
+        "XE",
+        "XF",
+        "XG",
+        "XH",
+        "XI"
+      ],
+      "prefix_regex": "^X[A-I][A-Z0-9/]*$"
+    },
+    {
+      "id": 483,
+      "name_zh": "多哥",
+      "prefixes": [
+        "5V"
+      ],
+      "prefix_regex": "^5V[A-Z0-9/]*$"
+    },
+    {
+      "id": 95,
+      "name_zh": "多米尼克",
+      "prefixes": [
+        "J7"
+      ],
+      "prefix_regex": "^J7[A-Z0-9/]*$"
+    },
+    {
+      "id": 72,
+      "name_zh": "多米尼加共和国",
+      "prefixes": [
+        "HI"
+      ],
+      "prefix_regex": "^HI[A-Z0-9/]*$"
+    },
+    {
+      "id": 5,
+      "name_zh": "奥兰群岛",
+      "prefixes": [
+        "OH0"
+      ],
+      "prefix_regex": "^OH0[A-Z0-9/]*$"
+    },
+    {
+      "id": 206,
+      "name_zh": "奥地利",
+      "prefixes": [
+        "OE"
+      ],
+      "prefix_regex": "^OE[A-Z0-9/]*$"
+    },
+    {
+      "id": 17,
+      "name_zh": "委内瑞拉（YV0）",
+      "prefixes": [
+        "YV0"
+      ],
+      "prefix_regex": "^YV0[A-Z0-9/]*$"
+    },
+    {
+      "id": 148,
+      "name_zh": "委内瑞拉（YV）",
+      "prefixes": [
+        "YV",
+        "YW",
+        "YX",
+        "YY",
+        "4M"
+      ],
+      "prefix_regex": "^(Y[V-Y]|4M)[A-Z0-9/]*$"
+    },
+    {
+      "id": 305,
+      "name_zh": "孟加拉国",
+      "prefixes": [
+        "S2"
+      ],
+      "prefix_regex": "^S2[A-Z0-9/]*$"
+    },
+    {
+      "id": 401,
+      "name_zh": "安哥拉",
+      "prefixes": [
+        "D2",
+        "D3"
+      ],
+      "prefix_regex": "^D[23][A-Z0-9/]*$"
+    },
+    {
+      "id": 12,
+      "name_zh": "安圭拉",
+      "prefixes": [
+        "VP2E"
+      ],
+      "prefix_regex": "^VP2E[A-Z0-9/]*$"
+    },
+    {
+      "id": 94,
+      "name_zh": "安提瓜和巴布达",
+      "prefixes": [
+        "V2"
+      ],
+      "prefix_regex": "^V2[A-Z0-9/]*$"
+    },
+    {
+      "id": 203,
+      "name_zh": "安道尔",
+      "prefixes": [
+        "C3"
+      ],
+      "prefix_regex": "^C3[A-Z0-9/]*$"
+    },
+    {
+      "id": 173,
+      "name_zh": "密克罗尼西亚",
+      "prefixes": [
+        "V6"
+      ],
+      "prefix_regex": "^V6[A-Z0-9/]*$"
+    },
+    {
+      "id": 86,
+      "name_zh": "尼加拉瓜",
+      "prefixes": [
+        "YN",
+        "H6",
+        "H7",
+        "HT"
+      ],
+      "prefix_regex": "^(YN|H[67T])[A-Z0-9/]*$"
+    },
+    {
+      "id": 450,
+      "name_zh": "尼日利亚",
+      "prefixes": [
+        "5N"
+      ],
+      "prefix_regex": "^5N[A-Z0-9/]*$"
+    },
+    {
+      "id": 187,
+      "name_zh": "尼日尔",
+      "prefixes": [
+        "5U"
+      ],
+      "prefix_regex": "^5U[A-Z0-9/]*$"
+    },
+    {
+      "id": 369,
+      "name_zh": "尼泊尔",
+      "prefixes": [
+        "9N"
+      ],
+      "prefix_regex": "^9N[A-Z0-9/]*$"
+    },
+    {
+      "id": 510,
+      "name_zh": "巴勒斯坦领土",
+      "prefixes": [
+        "E4"
+      ],
+      "prefix_regex": "^E4[A-Z0-9/]*$"
+    },
+    {
+      "id": 60,
+      "name_zh": "巴哈马",
+      "prefixes": [
+        "C6"
+      ],
+      "prefix_regex": "^C6[A-Z0-9/]*$"
+    },
+    {
+      "id": 372,
+      "name_zh": "巴基斯坦",
+      "prefixes": [
+        "AP"
+      ],
+      "prefix_regex": "^AP[A-Z0-9/]*$"
+    },
+    {
+      "id": 62,
+      "name_zh": "巴巴多斯",
+      "prefixes": [
+        "8P"
+      ],
+      "prefix_regex": "^8P[A-Z0-9/]*$"
+    },
+    {
+      "id": 163,
+      "name_zh": "巴布亚新几内亚",
+      "prefixes": [
+        "P2"
+      ],
+      "prefix_regex": "^P2[A-Z0-9/]*$"
+    },
+    {
+      "id": 132,
+      "name_zh": "巴拉圭",
+      "prefixes": [
+        "ZP"
+      ],
+      "prefix_regex": "^ZP[A-Z0-9/]*$"
+    },
+    {
+      "id": 88,
+      "name_zh": "巴拿马",
+      "prefixes": [
+        "HO",
+        "HP"
+      ],
+      "prefix_regex": "^H[OP][A-Z0-9/]*$"
+    },
+    {
+      "id": 304,
+      "name_zh": "巴林",
+      "prefixes": [
+        "A9"
+      ],
+      "prefix_regex": "^A9[A-Z0-9/]*$"
+    },
+    {
+      "id": 56,
+      "name_zh": "巴西（PP0F）",
+      "prefixes": [
+        "PP0F",
+        "PQ0F",
+        "PR0F",
+        "PS0F",
+        "PT0F",
+        "PU0F",
+        "PV0F",
+        "PW0F",
+        "PX0F",
+        "PY0F"
+      ],
+      "prefix_regex": "^P[P-Y]0F[A-Z0-9/]*$"
+    },
+    {
+      "id": 253,
+      "name_zh": "巴西（PP0S）",
+      "prefixes": [
+        "PP0S",
+        "PQ0S",
+        "PR0S",
+        "PS0S",
+        "PT0S",
+        "PU0S",
+        "PV0S",
+        "PW0S",
+        "PX0S",
+        "PY0S"
+      ],
+      "prefix_regex": "^P[P-Y]0S[A-Z0-9/]*$"
+    },
+    {
+      "id": 273,
+      "name_zh": "巴西（PP0T）",
+      "prefixes": [
+        "PP0T",
+        "PQ0T",
+        "PR0T",
+        "PS0T",
+        "PT0T",
+        "PU0T",
+        "PV0T",
+        "PW0T",
+        "PX0T",
+        "PY0T"
+      ],
+      "prefix_regex": "^P[P-Y]0T[A-Z0-9/]*$"
+    },
+    {
+      "id": 108,
+      "name_zh": "巴西（PP）",
+      "prefixes": [
+        "PP",
+        "PQ",
+        "PR",
+        "PS",
+        "PT",
+        "PU",
+        "PV",
+        "PW",
+        "PX",
+        "PY",
+        "ZV",
+        "ZW",
+        "ZX",
+        "ZY",
+        "ZZ"
+      ],
+      "prefix_regex": "^(P[P-Y]|Z[V-Z])[A-Z0-9/]*$"
+    },
+    {
+      "id": 480,
+      "name_zh": "布基纳法索",
+      "prefixes": [
+        "XT"
+      ],
+      "prefix_regex": "^XT[A-Z0-9/]*$"
+    },
+    {
+      "id": 404,
+      "name_zh": "布隆迪",
+      "prefixes": [
+        "9U"
+      ],
+      "prefix_regex": "^9U[A-Z0-9/]*$"
+    },
+    {
+      "id": 199,
+      "name_zh": "布韦岛（3Y，实体199）",
+      "prefixes": [
+        "3Y"
+      ],
+      "prefix_regex": "^3Y[A-Z0-9/]*$"
+    },
+    {
+      "id": 24,
+      "name_zh": "布韦岛（3Y，实体24）",
+      "prefixes": [
+        "3Y"
+      ],
+      "prefix_regex": "^3Y[A-Z0-9/]*$"
+    },
+    {
+      "id": 180,
+      "name_zh": "希腊（SV/A）",
+      "prefixes": [
+        "SV/A"
+      ],
+      "prefix_regex": "^SV/A[A-Z0-9/]*$"
+    },
+    {
+      "id": 45,
+      "name_zh": "希腊（SV5）",
+      "prefixes": [
+        "SV5",
+        "J45"
+      ],
+      "prefix_regex": "^(SV|J4)5[A-Z0-9/]*$"
+    },
+    {
+      "id": 40,
+      "name_zh": "希腊（SV9）",
+      "prefixes": [
+        "SV9",
+        "J49"
+      ],
+      "prefix_regex": "^(SV|J4)9[A-Z0-9/]*$"
+    },
+    {
+      "id": 236,
+      "name_zh": "希腊（SV）",
+      "prefixes": [
+        "SV",
+        "SW",
+        "SX",
+        "SY",
+        "SZ",
+        "J4"
+      ],
+      "prefix_regex": "^(S[V-Z]|J4)[A-Z0-9/]*$"
+    },
+    {
+      "id": 22,
+      "name_zh": "帕劳",
+      "prefixes": [
+        "T8"
+      ],
+      "prefix_regex": "^T8[A-Z0-9/]*$"
+    },
+    {
+      "id": 191,
+      "name_zh": "库克群岛（E5，实体191）",
+      "prefixes": [
+        "E5"
+      ],
+      "prefix_regex": "^E5[A-Z0-9/]*$"
+    },
+    {
+      "id": 234,
+      "name_zh": "库克群岛（E5，实体234）",
+      "prefixes": [
+        "E5"
+      ],
+      "prefix_regex": "^E5[A-Z0-9/]*$"
+    },
+    {
+      "id": 517,
+      "name_zh": "库拉索",
+      "prefixes": [
+        "PJ2"
+      ],
+      "prefix_regex": "^PJ2[A-Z0-9/]*$"
+    },
+    {
+      "id": 69,
+      "name_zh": "开曼群岛",
+      "prefixes": [
+        "ZF"
+      ],
+      "prefix_regex": "^ZF[A-Z0-9/]*$"
+    },
+    {
+      "id": 230,
+      "name_zh": "德国",
+      "prefixes": [
+        "DA",
+        "DB",
+        "DC",
+        "DD",
+        "DE",
+        "DF",
+        "DG",
+        "DH",
+        "DI",
+        "DJ",
+        "DK",
+        "DL",
+        "DM",
+        "DN",
+        "DO",
+        "DP",
+        "DQ",
+        "DR"
+      ],
+      "prefix_regex": "^D[A-R][A-Z0-9/]*$"
+    },
+    {
+      "id": 225,
+      "name_zh": "意大利（IS0）",
+      "prefixes": [
+        "IS0",
+        "IM0"
+      ],
+      "prefix_regex": "^I[SM]0[A-Z0-9/]*$"
+    },
+    {
+      "id": 248,
+      "name_zh": "意大利（I）",
+      "prefixes": [
+        "I"
+      ],
+      "prefix_regex": "^I[A-Z0-9/]*$"
+    },
+    {
+      "id": 507,
+      "name_zh": "所罗门群岛（H40）",
+      "prefixes": [
+        "H40"
+      ],
+      "prefix_regex": "^H40[A-Z0-9/]*$"
+    },
+    {
+      "id": 185,
+      "name_zh": "所罗门群岛（H4）",
+      "prefixes": [
+        "H4"
+      ],
+      "prefix_regex": "^H4[A-Z0-9/]*$"
+    },
+    {
+      "id": 270,
+      "name_zh": "托克劳",
+      "prefixes": [
+        "ZK3"
+      ],
+      "prefix_regex": "^ZK3[A-Z0-9/]*$"
+    },
+    {
+      "id": 145,
+      "name_zh": "拉脱维亚",
+      "prefixes": [
+        "YL"
+      ],
+      "prefix_regex": "^YL[A-Z0-9/]*$"
+    },
+    {
+      "id": 266,
+      "name_zh": "挪威",
+      "prefixes": [
+        "LA",
+        "LB",
+        "LC",
+        "LD",
+        "LE",
+        "LF",
+        "LG",
+        "LH",
+        "LI",
+        "LJ",
+        "LK",
+        "LL",
+        "LM",
+        "LN"
+      ],
+      "prefix_regex": "^L[A-N][A-Z0-9/]*$"
+    },
+    {
+      "id": 503,
+      "name_zh": "捷克",
+      "prefixes": [
+        "OK",
+        "OL"
+      ],
+      "prefix_regex": "^O[KL][A-Z0-9/]*$"
+    },
+    {
+      "id": 179,
+      "name_zh": "摩尔多瓦",
+      "prefixes": [
+        "ER"
+      ],
+      "prefix_regex": "^ER[A-Z0-9/]*$"
+    },
+    {
+      "id": 446,
+      "name_zh": "摩洛哥",
+      "prefixes": [
+        "CN",
+        "5C",
+        "5D",
+        "5E"
+      ],
+      "prefix_regex": "^(CN|5[C-E])[A-Z0-9/]*$"
+    },
+    {
+      "id": 260,
+      "name_zh": "摩纳哥",
+      "prefixes": [
+        "3A"
+      ],
+      "prefix_regex": "^3A[A-Z0-9/]*$"
+    },
+    {
+      "id": 345,
+      "name_zh": "文莱",
+      "prefixes": [
+        "V8"
+      ],
+      "prefix_regex": "^V8[A-Z0-9/]*$"
+    },
+    {
+      "id": 176,
+      "name_zh": "斐济（3D2，实体176）",
+      "prefixes": [
+        "3D2"
+      ],
+      "prefix_regex": "^3D2[A-Z0-9/]*$"
+    },
+    {
+      "id": 460,
+      "name_zh": "斐济（3D2，实体460）",
+      "prefixes": [
+        "3D2"
+      ],
+      "prefix_regex": "^3D2[A-Z0-9/]*$"
+    },
+    {
+      "id": 489,
+      "name_zh": "斐济（3D2，实体489）",
+      "prefixes": [
+        "3D2"
+      ],
+      "prefix_regex": "^3D2[A-Z0-9/]*$"
+    },
+    {
+      "id": 468,
+      "name_zh": "斯威士兰",
+      "prefixes": [
+        "3DA"
+      ],
+      "prefix_regex": "^3DA[A-Z0-9/]*$"
+    },
+    {
+      "id": 504,
+      "name_zh": "斯洛伐克",
+      "prefixes": [
+        "OM"
+      ],
+      "prefix_regex": "^OM[A-Z0-9/]*$"
+    },
+    {
+      "id": 499,
+      "name_zh": "斯洛文尼亚",
+      "prefixes": [
+        "S5"
+      ],
+      "prefix_regex": "^S5[A-Z0-9/]*$"
+    },
+    {
+      "id": 259,
+      "name_zh": "斯瓦尔巴和扬马延（JW）",
+      "prefixes": [
+        "JW"
+      ],
+      "prefix_regex": "^JW[A-Z0-9/]*$"
+    },
+    {
+      "id": 118,
+      "name_zh": "斯瓦尔巴和扬马延（JX）",
+      "prefixes": [
+        "JX"
+      ],
+      "prefix_regex": "^JX[A-Z0-9/]*$"
+    },
+    {
+      "id": 315,
+      "name_zh": "斯里兰卡",
+      "prefixes": [
+        "4S"
+      ],
+      "prefix_regex": "^4S[A-Z0-9/]*$"
+    },
+    {
+      "id": 381,
+      "name_zh": "新加坡",
+      "prefixes": [
+        "9V"
+      ],
+      "prefix_regex": "^9V[A-Z0-9/]*$"
+    },
+    {
+      "id": 162,
+      "name_zh": "新喀里多尼亚（FK，实体162）",
+      "prefixes": [
+        "FK",
+        "TX"
+      ],
+      "prefix_regex": "^(FK|TX)[A-Z0-9/]*$"
+    },
+    {
+      "id": 512,
+      "name_zh": "新喀里多尼亚（FK，实体512）",
+      "prefixes": [
+        "FK",
+        "TX"
+      ],
+      "prefix_regex": "^(FK|TX)[A-Z0-9/]*$"
+    },
+    {
+      "id": 34,
+      "name_zh": "新西兰（ZL7）",
+      "prefixes": [
+        "ZL7"
+      ],
+      "prefix_regex": "^ZL7[A-Z0-9/]*$"
+    },
+    {
+      "id": 133,
+      "name_zh": "新西兰（ZL8）",
+      "prefixes": [
+        "ZL8"
+      ],
+      "prefix_regex": "^ZL8[A-Z0-9/]*$"
+    },
+    {
+      "id": 16,
+      "name_zh": "新西兰（ZL9）",
+      "prefixes": [
+        "ZL9"
+      ],
+      "prefix_regex": "^ZL9[A-Z0-9/]*$"
+    },
+    {
+      "id": 170,
+      "name_zh": "新西兰（ZL）",
+      "prefixes": [
+        "ZL",
+        "ZM"
+      ],
+      "prefix_regex": "^Z[L-M][A-Z0-9/]*$"
+    },
+    {
+      "id": 339,
+      "name_zh": "日本（JA）",
+      "prefixes": [
+        "JA",
+        "JB",
+        "JC",
+        "JD",
+        "JE",
+        "JF",
+        "JG",
+        "JH",
+        "JI",
+        "JJ",
+        "JK",
+        "JL",
+        "JM",
+        "JN",
+        "JO",
+        "JP",
+        "JQ",
+        "JR",
+        "JS",
+        "7J",
+        "7K",
+        "7L",
+        "7M",
+        "7N",
+        "8N"
+      ],
+      "prefix_regex": "^(J[A-S]|7[J-N]|8N)[A-Z0-9/]*$"
+    },
+    {
+      "id": 177,
+      "name_zh": "日本（JD1，实体177）",
+      "prefixes": [
+        "JD1"
+      ],
+      "prefix_regex": "^JD1[A-Z0-9/]*$"
+    },
+    {
+      "id": 192,
+      "name_zh": "日本（JD1，实体192）",
+      "prefixes": [
+        "JD1"
+      ],
+      "prefix_regex": "^JD1[A-Z0-9/]*$"
+    },
+    {
+      "id": 112,
+      "name_zh": "智利（CA）",
+      "prefixes": [
+        "CA",
+        "CB",
+        "CC",
+        "CD",
+        "CE",
+        "3G",
+        "XR"
+      ],
+      "prefix_regex": "^(?:C[A-D][A-Z0-9/]*|CE[1-8][A-Z0-9/]*|3G[A-Z0-9/]*|X[QR][A-Z1-9/]*)$"
+    },
+    {
+      "id": 125,
+      "name_zh": "智利（CE0，实体125）",
+      "prefixes": [
+        "CE0"
+      ],
+      "prefix_regex": "^CE0[A-Z0-9/]*$"
+    },
+    {
+      "id": 217,
+      "name_zh": "智利（CE0，实体217）",
+      "prefixes": [
+        "CE0"
+      ],
+      "prefix_regex": "^CE0[A-Z0-9/]*$"
+    },
+    {
+      "id": 47,
+      "name_zh": "智利（CE0，实体47）",
+      "prefixes": [
+        "CE0"
+      ],
+      "prefix_regex": "^CE0[A-Z0-9/]*$"
+    },
+    {
+      "id": 344,
+      "name_zh": "朝鲜",
+      "prefixes": [
+        "P5"
+      ],
+      "prefix_regex": "^P5[A-Z0-9/]*$"
+    },
+    {
+      "id": 246,
+      "name_zh": "未知地区（1A）",
+      "prefixes": [
+        "1A"
+      ],
+      "prefix_regex": "^1A[A-Z0-9/]*$"
+    },
+    {
+      "id": 167,
+      "name_zh": "未知地区（OJ0）",
+      "prefixes": [
+        "OJ0"
+      ],
+      "prefix_regex": "^OJ0[A-Z0-9/]*$"
+    },
+    {
+      "id": 312,
+      "name_zh": "柬埔寨",
+      "prefixes": [
+        "XU"
+      ],
+      "prefix_regex": "^XU[A-Z0-9/]*$"
+    },
+    {
+      "id": 106,
+      "name_zh": "根西岛",
+      "prefixes": [
+        "GU",
+        "GP"
+      ],
+      "prefix_regex": "^G[UP][A-Z0-9/]*$"
+    },
+    {
+      "id": 77,
+      "name_zh": "格林纳达",
+      "prefixes": [
+        "J3"
+      ],
+      "prefix_regex": "^J3[A-Z0-9/]*$"
+    },
+    {
+      "id": 237,
+      "name_zh": "格陵兰",
+      "prefixes": [
+        "OX"
+      ],
+      "prefix_regex": "^OX[A-Z0-9/]*$"
+    },
+    {
+      "id": 75,
+      "name_zh": "格鲁吉亚",
+      "prefixes": [
+        "4L"
+      ],
+      "prefix_regex": "^4L[A-Z0-9/]*$"
+    },
+    {
+      "id": 295,
+      "name_zh": "梵蒂冈",
+      "prefixes": [
+        "HV"
+      ],
+      "prefix_regex": "^HV[A-Z0-9/]*$"
+    },
+    {
+      "id": 209,
+      "name_zh": "比利时",
+      "prefixes": [
+        "ON",
+        "OO",
+        "OP",
+        "OQ",
+        "OR",
+        "OS",
+        "OT"
+      ],
+      "prefix_regex": "^O[N-T][A-Z0-9/]*$"
+    },
+    {
+      "id": 444,
+      "name_zh": "毛里塔尼亚",
+      "prefixes": [
+        "5T"
+      ],
+      "prefix_regex": "^5T[A-Z0-9/]*$"
+    },
+    {
+      "id": 4,
+      "name_zh": "毛里求斯（3B6）",
+      "prefixes": [
+        "3B6",
+        "3B7"
+      ],
+      "prefix_regex": "^3B[67][A-Z0-9/]*$"
+    },
+    {
+      "id": 165,
+      "name_zh": "毛里求斯（3B8）",
+      "prefixes": [
+        "3B8"
+      ],
+      "prefix_regex": "^3B8[A-Z0-9/]*$"
+    },
+    {
+      "id": 207,
+      "name_zh": "毛里求斯（3B9）",
+      "prefixes": [
+        "3B9"
+      ],
+      "prefix_regex": "^3B9[A-Z0-9/]*$"
+    },
+    {
+      "id": 160,
+      "name_zh": "汤加",
+      "prefixes": [
+        "A3"
+      ],
+      "prefix_regex": "^A3[A-Z0-9/]*$"
+    },
+    {
+      "id": 378,
+      "name_zh": "沙特阿拉伯",
+      "prefixes": [
+        "HZ",
+        "7Z"
+      ],
+      "prefix_regex": "^HZ|7Z[A-Z0-9/]*$"
+    },
+    {
+      "id": 516,
+      "name_zh": "法国（FJ）",
+      "prefixes": [
+        "FJ",
+        "TO"
+      ],
+      "prefix_regex": "^(FJ|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 453,
+      "name_zh": "法国（FR）",
+      "prefixes": [
+        "FR",
+        "TO"
+      ],
+      "prefix_regex": "^(FR|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 213,
+      "name_zh": "法国（FS）",
+      "prefixes": [
+        "FS",
+        "TO"
+      ],
+      "prefix_regex": "^(FS|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 227,
+      "name_zh": "法国（F）",
+      "prefixes": [
+        "F",
+        "HW",
+        "HX",
+        "HY",
+        "TH",
+        "TM",
+        "TP",
+        "TQ",
+        "TV",
+        "TW",
+        "TX"
+      ],
+      "prefix_regex": "^(F|HW|HX|HY|TH|TM|TP|TQ|TV|TW|TX)[A-Z0-9/]*$"
+    },
+    {
+      "id": 214,
+      "name_zh": "法国（TK）",
+      "prefixes": [
+        "TK"
+      ],
+      "prefix_regex": "^TK[A-Z0-9/]*$"
+    },
+    {
+      "id": 99,
+      "name_zh": "法属南部领地（FT/G）",
+      "prefixes": [
+        "FT/G",
+        "TO"
+      ],
+      "prefix_regex": "^(FT\\/G|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 124,
+      "name_zh": "法属南部领地（FT/J）",
+      "prefixes": [
+        "FT/J",
+        "E",
+        "TO"
+      ],
+      "prefix_regex": "^(FT\\/J|E|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 276,
+      "name_zh": "法属南部领地（FT/T）",
+      "prefixes": [
+        "FT/T",
+        "TO"
+      ],
+      "prefix_regex": "^(FT\\/T|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 41,
+      "name_zh": "法属南部领地（FT/W）",
+      "prefixes": [
+        "FT/W"
+      ],
+      "prefix_regex": "^FT\\/W[A-Z0-9/]*$"
+    },
+    {
+      "id": 131,
+      "name_zh": "法属南部领地（FT/X）",
+      "prefixes": [
+        "FT/X"
+      ],
+      "prefix_regex": "^FT\\/X[A-Z0-9/]*$"
+    },
+    {
+      "id": 10,
+      "name_zh": "法属南部领地（FT/Z）",
+      "prefixes": [
+        "FT/Z"
+      ],
+      "prefix_regex": "^FT\\/Z[A-Z0-9/]*$"
+    },
+    {
+      "id": 63,
+      "name_zh": "法属圭亚那",
+      "prefixes": [
+        "FY"
+      ],
+      "prefix_regex": "^FY[A-Z0-9/]*$"
+    },
+    {
+      "id": 175,
+      "name_zh": "法属波利尼西亚（FO，实体175）",
+      "prefixes": [
+        "FO",
+        "TX"
+      ],
+      "prefix_regex": "^(FO|TX)[A-Z0-9/]*$"
+    },
+    {
+      "id": 36,
+      "name_zh": "法属波利尼西亚（FO，实体36）",
+      "prefixes": [
+        "FO",
+        "TX"
+      ],
+      "prefix_regex": "^(FO|TX)[A-Z0-9/]*$"
+    },
+    {
+      "id": 508,
+      "name_zh": "法属波利尼西亚（FO，实体508）",
+      "prefixes": [
+        "FO",
+        "TO"
+      ],
+      "prefix_regex": "^(FO|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 509,
+      "name_zh": "法属波利尼西亚（FO，实体509）",
+      "prefixes": [
+        "FO",
+        "TX"
+      ],
+      "prefix_regex": "^(FO|TX)[A-Z0-9/]*$"
+    },
+    {
+      "id": 222,
+      "name_zh": "法罗群岛",
+      "prefixes": [
+        "OY"
+      ],
+      "prefix_regex": "^OY[A-Z0-9/]*$"
+    },
+    {
+      "id": 269,
+      "name_zh": "波兰",
+      "prefixes": [
+        "HF",
+        "SN",
+        "SO",
+        "SP",
+        "SQ",
+        "SR",
+        "3Z"
+      ],
+      "prefix_regex": "^(HF|S[N-R]|3Z)[A-Z0-9/]*$"
+    },
+    {
+      "id": 202,
+      "name_zh": "波多黎各（KP4）",
+      "prefixes": [
+        "KP4",
+        "NP4",
+        "WP4"
+      ],
+      "prefix_regex": "^KP[4]|WP[4]|NP[4][A-Z0-9/]*$"
+    },
+    {
+      "id": 43,
+      "name_zh": "波多黎各（KP5）",
+      "prefixes": [
+        "KP5"
+      ],
+      "prefix_regex": "^KP5[A-Z0-9/]*$"
+    },
+    {
+      "id": 501,
+      "name_zh": "波斯尼亚和黑塞哥维那",
+      "prefixes": [
+        "E7"
+      ],
+      "prefix_regex": "^(E7[A-Z0-9/]*|T9[A-Z0-9/]*)"
+    },
+    {
+      "id": 387,
+      "name_zh": "泰国",
+      "prefixes": [
+        "HS",
+        "E2"
+      ],
+      "prefix_regex": "^(HS|E2)[A-Z0-9/]*$"
+    },
+    {
+      "id": 122,
+      "name_zh": "泽西岛",
+      "prefixes": [
+        "GJ",
+        "GH"
+      ],
+      "prefix_regex": "^G[JH][A-Z0-9/]*$"
+    },
+    {
+      "id": 452,
+      "name_zh": "津巴布韦",
+      "prefixes": [
+        "Z2"
+      ],
+      "prefix_regex": "^Z2[A-Z0-9/]*$"
+    },
+    {
+      "id": 80,
+      "name_zh": "洪都拉斯",
+      "prefixes": [
+        "HQ",
+        "HR"
+      ],
+      "prefix_regex": "^H[QR][A-Z0-9/]*$"
+    },
+    {
+      "id": 78,
+      "name_zh": "海地",
+      "prefixes": [
+        "HH"
+      ],
+      "prefix_regex": "^HH[A-Z0-9/]*$"
+    },
+    {
+      "id": 150,
+      "name_zh": "澳大利亚（VH）",
+      "prefixes": [
+        "VH",
+        "VI",
+        "VJ",
+        "VK",
+        "AX"
+      ],
+      "prefix_regex": "^(V[H-K]|AX)[A-Z0-9/]*$"
+    },
+    {
+      "id": 153,
+      "name_zh": "澳大利亚（VK0）",
+      "prefixes": [
+        "VK0"
+      ],
+      "prefix_regex": "^VK0[A-Z0-9/]*$"
+    },
+    {
+      "id": 147,
+      "name_zh": "澳大利亚（VK9L）",
+      "prefixes": [
+        "VK9L"
+      ],
+      "prefix_regex": "^VK9L[A-Z0-9/]*$"
+    },
+    {
+      "id": 171,
+      "name_zh": "澳大利亚（VK9M）",
+      "prefixes": [
+        "VK9M"
+      ],
+      "prefix_regex": "^VK9M[A-Z0-9/]*$"
+    },
+    {
+      "id": 189,
+      "name_zh": "澳大利亚（VK9N）",
+      "prefixes": [
+        "VK9N"
+      ],
+      "prefix_regex": "^VK9N[A-Z0-9/]*$"
+    },
+    {
+      "id": 303,
+      "name_zh": "澳大利亚（VK9W）",
+      "prefixes": [
+        "VK9W"
+      ],
+      "prefix_regex": "^VK9W[A-Z0-9/]*$"
+    },
+    {
+      "id": 245,
+      "name_zh": "爱尔兰",
+      "prefixes": [
+        "EI",
+        "EJ"
+      ],
+      "prefix_regex": "^E[IJ][A-Z0-9/]*$"
+    },
+    {
+      "id": 52,
+      "name_zh": "爱沙尼亚",
+      "prefixes": [
+        "ES"
+      ],
+      "prefix_regex": "^ES[A-Z0-9/]*$"
+    },
+    {
+      "id": 82,
+      "name_zh": "牙买加",
+      "prefixes": [
+        "6Y"
+      ],
+      "prefix_regex": "^6Y[A-Z0-9/]*$"
+    },
+    {
+      "id": 89,
+      "name_zh": "特克斯和凯科斯群岛",
+      "prefixes": [
+        "VP5"
+      ],
+      "prefix_regex": "^VP5[A-Z0-9/]*$"
+    },
+    {
+      "id": 90,
+      "name_zh": "特立尼达和多巴哥",
+      "prefixes": [
+        "9Y",
+        "9Z"
+      ],
+      "prefix_regex": "^9[YZ][A-Z0-9/]*$"
+    },
+    {
+      "id": 104,
+      "name_zh": "玻利维亚",
+      "prefixes": [
+        "CP"
+      ],
+      "prefix_regex": "^CP[A-Z0-9/]*$"
+    },
+    {
+      "id": 157,
+      "name_zh": "瑙鲁",
+      "prefixes": [
+        "C2"
+      ],
+      "prefix_regex": "^C2[A-Z0-9/]*$"
+    },
+    {
+      "id": 284,
+      "name_zh": "瑞典",
+      "prefixes": [
+        "SA",
+        "SB",
+        "SC",
+        "SD",
+        "SE",
+        "SF",
+        "SG",
+        "SH",
+        "SI",
+        "SJ",
+        "SK",
+        "SL",
+        "SM",
+        "7S",
+        "8S"
+      ],
+      "prefix_regex": "^(S[A-M]|[78]S)[A-Z0-9/]*$"
+    },
+    {
+      "id": 287,
+      "name_zh": "瑞士",
+      "prefixes": [
+        "HB"
+      ],
+      "prefix_regex": "^HB[A-Z0-9/]*$"
+    },
+    {
+      "id": 79,
+      "name_zh": "瓜德罗普",
+      "prefixes": [
+        "FG",
+        "TO"
+      ],
+      "prefix_regex": "^(FG|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 298,
+      "name_zh": "瓦利斯和富图纳",
+      "prefixes": [
+        "FW"
+      ],
+      "prefix_regex": "^FW[A-Z0-9/]*$"
+    },
+    {
+      "id": 158,
+      "name_zh": "瓦努阿图",
+      "prefixes": [
+        "YJ"
+      ],
+      "prefix_regex": "^YJ[A-Z0-9/]*$"
+    },
+    {
+      "id": 27,
+      "name_zh": "白俄罗斯",
+      "prefixes": [
+        "EU",
+        "EV",
+        "EW"
+      ],
+      "prefix_regex": "^E[U-W][A-Z0-9/]*$"
+    },
+    {
+      "id": 64,
+      "name_zh": "百慕大",
+      "prefixes": [
+        "VP9"
+      ],
+      "prefix_regex": "^VP9[A-Z0-9/]*$"
+    },
+    {
+      "id": 172,
+      "name_zh": "皮特凯恩群岛（VP6，实体172）",
+      "prefixes": [
+        "VP6"
+      ],
+      "prefix_regex": "^VP6[A-Z0-9/]*$"
+    },
+    {
+      "id": 513,
+      "name_zh": "皮特凯恩群岛（VP6，实体513）",
+      "prefixes": [
+        "VP6"
+      ],
+      "prefix_regex": "^VP6[A-Z0-9/]*$"
+    },
+    {
+      "id": 233,
+      "name_zh": "直布罗陀",
+      "prefixes": [
+        "ZB2"
+      ],
+      "prefix_regex": "^ZB2[A-Z0-9/]*$"
+    },
+    {
+      "id": 141,
+      "name_zh": "福克兰群岛",
+      "prefixes": [
+        "VP8"
+      ],
+      "prefix_regex": "^VP8[A-Z0-9/]*$"
+    },
+    {
+      "id": 348,
+      "name_zh": "科威特",
+      "prefixes": [
+        "9K"
+      ],
+      "prefix_regex": "^9K[A-Z0-9/]*$"
+    },
+    {
+      "id": 411,
+      "name_zh": "科摩罗",
+      "prefixes": [
+        "D6"
+      ],
+      "prefix_regex": "^D6[A-Z0-9/]*$"
+    },
+    {
+      "id": 428,
+      "name_zh": "科特迪瓦",
+      "prefixes": [
+        "TU"
+      ],
+      "prefix_regex": "^TU[A-Z0-9/]*$"
+    },
+    {
+      "id": 38,
+      "name_zh": "科科斯（基林）群岛",
+      "prefixes": [
+        "VK9C"
+      ],
+      "prefix_regex": "^VK9C[A-Z0-9/]*$"
+    },
+    {
+      "id": 522,
+      "name_zh": "科索沃",
+      "prefixes": [
+        "Z6"
+      ],
+      "prefix_regex": "^Z6[A-Z0-9/]*$"
+    },
+    {
+      "id": 136,
+      "name_zh": "秘鲁",
+      "prefixes": [
+        "OA",
+        "OB",
+        "OC"
+      ],
+      "prefix_regex": "^O[A-C][A-Z0-9/]*$"
+    },
+    {
+      "id": 474,
+      "name_zh": "突尼斯",
+      "prefixes": [
+        "3V"
+      ],
+      "prefix_regex": "^3V[A-Z0-9/]*$"
+    },
+    {
+      "id": 146,
+      "name_zh": "立陶宛",
+      "prefixes": [
+        "LY"
+      ],
+      "prefix_regex": "^LY[A-Z0-9/]*$"
+    },
+    {
+      "id": 232,
+      "name_zh": "索马里",
+      "prefixes": [
+        "T5",
+        "6O"
+      ],
+      "prefix_regex": "^(T5|6O)[A-Z0-9/]*$"
+    },
+    {
+      "id": 342,
+      "name_zh": "约旦",
+      "prefixes": [
+        "JY"
+      ],
+      "prefix_regex": "^JY[A-Z0-9/]*$"
+    },
+    {
+      "id": 464,
+      "name_zh": "纳米比亚",
+      "prefixes": [
+        "V5"
+      ],
+      "prefix_regex": "^V5[A-Z0-9/]*$"
+    },
+    {
+      "id": 188,
+      "name_zh": "纽埃",
+      "prefixes": [
+        "E6"
+      ],
+      "prefix_regex": "^E6[A-Z0-9/]*$"
+    },
+    {
+      "id": 309,
+      "name_zh": "缅甸",
+      "prefixes": [
+        "XY",
+        "XZ"
+      ],
+      "prefix_regex": "^X[YZ][A-Z0-9/]*$"
+    },
+    {
+      "id": 275,
+      "name_zh": "罗马尼亚",
+      "prefixes": [
+        "YO",
+        "YP",
+        "YQ",
+        "YR"
+      ],
+      "prefix_regex": "^Y[O-R][A-Z0-9/]*$"
+    },
+    {
+      "id": 20,
+      "name_zh": "美国本土外小岛屿",
+      "prefixes": [
+        "KH1"
+      ],
+      "prefix_regex": "^KH1[A-Z0-9/]*$"
+    },
+    {
+      "id": 105,
+      "name_zh": "美国（KG4）",
+      "prefixes": [
+        "KG4"
+      ],
+      "prefix_regex": "^KG4[A-Z0-9/]*$"
+    },
+    {
+      "id": 123,
+      "name_zh": "美国（KH3）",
+      "prefixes": [
+        "KH3"
+      ],
+      "prefix_regex": "^KH3[A-Z0-9/]*$"
+    },
+    {
+      "id": 174,
+      "name_zh": "美国（KH4）",
+      "prefixes": [
+        "KH4"
+      ],
+      "prefix_regex": "^KH4[A-Z0-9/]*$"
+    },
+    {
+      "id": 197,
+      "name_zh": "美国（KH5）",
+      "prefixes": [
+        "KH5"
+      ],
+      "prefix_regex": "^KH5[A-Z0-9/]*$"
+    },
+    {
+      "id": 110,
+      "name_zh": "美国（KH6）",
+      "prefixes": [
+        "KH6",
+        "KH7"
+      ],
+      "prefix_regex": "^KH[67][A-Z0-9/]*$"
+    },
+    {
+      "id": 138,
+      "name_zh": "美国（KH7K）",
+      "prefixes": [
+        "KH7K"
+      ],
+      "prefix_regex": "^KH7K[A-Z0-9/]*$"
+    },
+    {
+      "id": 297,
+      "name_zh": "美国（KH9）",
+      "prefixes": [
+        "KH9"
+      ],
+      "prefix_regex": "^KH9[A-Z0-9/]*$"
+    },
+    {
+      "id": 6,
+      "name_zh": "美国（KL）",
+      "prefixes": [
+        "KL",
+        "AL",
+        "NL",
+        "WL"
+      ],
+      "prefix_regex": "^[KANW]L[A-Z0-9/]*$"
+    },
+    {
+      "id": 182,
+      "name_zh": "美国（KP1）",
+      "prefixes": [
+        "KP1"
+      ],
+      "prefix_regex": "^KP1[A-Z0-9/]*$"
+    },
+    {
+      "id": 291,
+      "name_zh": "美国（K）",
+      "prefixes": [
+        "K",
+        "W",
+        "N",
+        "AA",
+        "AB",
+        "AC",
+        "AD",
+        "AE",
+        "AF",
+        "AG",
+        "AH",
+        "AI",
+        "AJ",
+        "AK"
+      ],
+      "prefix_regex": "^(K|W|N|A[A-K])[A-Z0-9/]*$"
+    },
+    {
+      "id": 285,
+      "name_zh": "美属维尔京群岛",
+      "prefixes": [
+        "KP2"
+      ],
+      "prefix_regex": "^KP2[A-Z0-9/]*$"
+    },
+    {
+      "id": 515,
+      "name_zh": "美属萨摩亚（KH8，实体515）",
+      "prefixes": [
+        "KH8"
+      ],
+      "prefix_regex": "^KH8[A-Z0-9/]*$"
+    },
+    {
+      "id": 9,
+      "name_zh": "美属萨摩亚（KH8，实体9）",
+      "prefixes": [
+        "KH8"
+      ],
+      "prefix_regex": "^KH8[A-Z0-9/]*$"
+    },
+    {
+      "id": 143,
+      "name_zh": "老挝",
+      "prefixes": [
+        "XW"
+      ],
+      "prefix_regex": "^XW[A-Z0-9/]*$"
+    },
+    {
+      "id": 117,
+      "name_zh": "联合国（4U，实体117）",
+      "prefixes": [
+        "4U"
+      ],
+      "prefix_regex": "^4U[A-Z0-9/]*$"
+    },
+    {
+      "id": 289,
+      "name_zh": "联合国（4U，实体289）",
+      "prefixes": [
+        "4U"
+      ],
+      "prefix_regex": "^4U[A-Z0-9/]*$"
+    },
+    {
+      "id": 430,
+      "name_zh": "肯尼亚",
+      "prefixes": [
+        "5Y",
+        "5Z"
+      ],
+      "prefix_regex": "^5[YZ][A-Z0-9/]*$"
+    },
+    {
+      "id": 224,
+      "name_zh": "芬兰",
+      "prefixes": [
+        "OF",
+        "OG",
+        "OH",
+        "OI"
+      ],
+      "prefix_regex": "^O[F-I][A-Z0-9/]*$"
+    },
+    {
+      "id": 466,
+      "name_zh": "苏丹",
+      "prefixes": [
+        "ST"
+      ],
+      "prefix_regex": "^ST[A-Z0-9/]*$"
+    },
+    {
+      "id": 140,
+      "name_zh": "苏里南",
+      "prefixes": [
+        "PZ"
+      ],
+      "prefix_regex": "^PZ[A-Z0-9/]*$"
+    },
+    {
+      "id": 279,
+      "name_zh": "英国（GM）",
+      "prefixes": [
+        "GM",
+        "GS"
+      ],
+      "prefix_regex": "^G[MS][A-Z0-9/]*$"
+    },
+    {
+      "id": 294,
+      "name_zh": "英国（GW）",
+      "prefixes": [
+        "GW",
+        "GC",
+        "2W"
+      ],
+      "prefix_regex": "^2W|G[WC][A-Z0-9/]*$"
+    },
+    {
+      "id": 223,
+      "name_zh": "英国（G）",
+      "prefixes": [
+        "G",
+        "GX",
+        "M",
+        "2E"
+      ],
+      "prefix_regex": "^(G|GX|M|2E)[A-Z0-9/]*$"
+    },
+    {
+      "id": 235,
+      "name_zh": "英国（VP8，实体235）",
+      "prefixes": [
+        "VP8",
+        "LU"
+      ],
+      "prefix_regex": "^(VP8|LU)[A-Z0-9/]*$"
+    },
+    {
+      "id": 240,
+      "name_zh": "英国（VP8，实体240）",
+      "prefixes": [
+        "VP8",
+        "LU"
+      ],
+      "prefix_regex": "^(VP8|LU)[A-Z0-9/]*$"
+    },
+    {
+      "id": 283,
+      "name_zh": "英国（ZC4）",
+      "prefixes": [
+        "ZC4"
+      ],
+      "prefix_regex": "^ZC4[A-Z0-9/]*$"
+    },
+    {
+      "id": 33,
+      "name_zh": "英属印度洋领地",
+      "prefixes": [
+        "VQ9"
+      ],
+      "prefix_regex": "^VQ9[A-Z0-9/]*$"
+    },
+    {
+      "id": 65,
+      "name_zh": "英属维尔京群岛",
+      "prefixes": [
+        "VP2V"
+      ],
+      "prefix_regex": "^VP2V[A-Z0-9/]*$"
+    },
+    {
+      "id": 263,
+      "name_zh": "荷兰",
+      "prefixes": [
+        "PA",
+        "PB",
+        "PC",
+        "PD",
+        "PE",
+        "PF",
+        "PG",
+        "PH",
+        "PI"
+      ],
+      "prefix_regex": "^P[A-I][A-Z0-9/]*$"
+    },
+    {
+      "id": 520,
+      "name_zh": "荷属加勒比区（PJ4）",
+      "prefixes": [
+        "PJ4"
+      ],
+      "prefix_regex": "^PJ4[A-Z0-9/]*$"
+    },
+    {
+      "id": 519,
+      "name_zh": "荷属加勒比区（PJ5）",
+      "prefixes": [
+        "PJ5",
+        "PJ6"
+      ],
+      "prefix_regex": "^PJ[56][A-Z0-9/]*$"
+    },
+    {
+      "id": 518,
+      "name_zh": "荷属圣马丁",
+      "prefixes": [
+        "PJ7"
+      ],
+      "prefix_regex": "^PJ7[A-Z0-9/]*$"
+    },
+    {
+      "id": 181,
+      "name_zh": "莫桑比克",
+      "prefixes": [
+        "C8",
+        "C9"
+      ],
+      "prefix_regex": "^C[89][A-Z0-9/]*$"
+    },
+    {
+      "id": 432,
+      "name_zh": "莱索托",
+      "prefixes": [
+        "7P"
+      ],
+      "prefix_regex": "^7P[A-Z0-9/]*$"
+    },
+    {
+      "id": 375,
+      "name_zh": "菲律宾",
+      "prefixes": [
+        "DU",
+        "DV",
+        "DW",
+        "DX",
+        "DY",
+        "DZ",
+        "4D",
+        "4E",
+        "4F",
+        "4G",
+        "4H",
+        "4I"
+      ],
+      "prefix_regex": "^(D[U-Z]|4[D-I])[A-Z0-9/]*$"
+    },
+    {
+      "id": 74,
+      "name_zh": "萨尔瓦多",
+      "prefixes": [
+        "YS",
+        "HU"
+      ],
+      "prefix_regex": "^(YS|HU)[A-Z0-9/]*$"
+    },
+    {
+      "id": 190,
+      "name_zh": "萨摩亚",
+      "prefixes": [
+        "5W"
+      ],
+      "prefix_regex": "^5W[A-Z0-9/]*$"
+    },
+    {
+      "id": 272,
+      "name_zh": "葡萄牙（CQ）",
+      "prefixes": [
+        "CQ",
+        "CR",
+        "CS",
+        "CT"
+      ],
+      "prefix_regex": "^(CQ|CR|CS|CT)[A-Z0-9/]*$"
+    },
+    {
+      "id": 256,
+      "name_zh": "葡萄牙（CT3）",
+      "prefixes": [
+        "CT3"
+      ],
+      "prefix_regex": "^CT3[A-Z0-9/]*$"
+    },
+    {
+      "id": 149,
+      "name_zh": "葡萄牙（CU）",
+      "prefixes": [
+        "CU"
+      ],
+      "prefix_regex": "^CU[A-Z0-9/]*$"
+    },
+    {
+      "id": 363,
+      "name_zh": "蒙古",
+      "prefixes": [
+        "JT",
+        "JU",
+        "JV"
+      ],
+      "prefix_regex": "^J[T-V][A-Z0-9/]*$"
+    },
+    {
+      "id": 96,
+      "name_zh": "蒙特塞拉特",
+      "prefixes": [
+        "VP2M"
+      ],
+      "prefix_regex": "^VP2M[A-Z0-9/]*$"
+    },
+    {
+      "id": 302,
+      "name_zh": "西撒哈拉",
+      "prefixes": [
+        "S0"
+      ],
+      "prefix_regex": "^S0[A-Z0-9/]*$"
+    },
+    {
+      "id": 21,
+      "name_zh": "西班牙（EA6）",
+      "prefixes": [
+        "EA6",
+        "EB6",
+        "EC6",
+        "ED6",
+        "EE6",
+        "EF6",
+        "EG6",
+        "EH6"
+      ],
+      "prefix_regex": "^E[A-H]6[A-Z0-9/]*$"
+    },
+    {
+      "id": 29,
+      "name_zh": "西班牙（EA8）",
+      "prefixes": [
+        "EA8",
+        "EB8",
+        "EC8",
+        "ED8",
+        "EE8",
+        "EF8",
+        "EG8",
+        "EH8"
+      ],
+      "prefix_regex": "^E[A-H]8[A-Z0-9/]*$"
+    },
+    {
+      "id": 32,
+      "name_zh": "西班牙（EA9）",
+      "prefixes": [
+        "EA9",
+        "EB9",
+        "EC9",
+        "ED9",
+        "EE9",
+        "EF9",
+        "EG9",
+        "EH9"
+      ],
+      "prefix_regex": "^E[A-H]9[A-Z0-9/]*$"
+    },
+    {
+      "id": 281,
+      "name_zh": "西班牙（EA）",
+      "prefixes": [
+        "EA",
+        "EB",
+        "EC",
+        "ED",
+        "EE",
+        "EF",
+        "EG",
+        "EH",
+        "AM",
+        "AN",
+        "AO"
+      ],
+      "prefix_regex": "^(E[A-H]|AM|AN|AO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 416,
+      "name_zh": "贝宁",
+      "prefixes": [
+        "TY"
+      ],
+      "prefix_regex": "^TY[A-Z0-9/]*$"
+    },
+    {
+      "id": 482,
+      "name_zh": "赞比亚",
+      "prefixes": [
+        "9I",
+        "9J"
+      ],
+      "prefix_regex": "^9[IJ][A-Z0-9/]*$"
+    },
+    {
+      "id": 195,
+      "name_zh": "赤道几内亚（3C0）",
+      "prefixes": [
+        "3C0"
+      ],
+      "prefix_regex": "^3C0[A-Z0-9/]*$"
+    },
+    {
+      "id": 49,
+      "name_zh": "赤道几内亚（3C）",
+      "prefixes": [
+        "3C"
+      ],
+      "prefix_regex": "^3C[A-Z0-9/]*$"
+    },
+    {
+      "id": 111,
+      "name_zh": "赫德岛和麦克唐纳群岛",
+      "prefixes": [
+        "VK0"
+      ],
+      "prefix_regex": "^VK0[A-Z0-9/]*$"
+    },
+    {
+      "id": 293,
+      "name_zh": "越南",
+      "prefixes": [
+        "3W",
+        "XV"
+      ],
+      "prefix_regex": "^(3W|XV)[A-Z0-9/]*$"
+    },
+    {
+      "id": 18,
+      "name_zh": "阿塞拜疆",
+      "prefixes": [
+        "4J",
+        "4K"
+      ],
+      "prefix_regex": "^4[JK][A-Z0-9/]*$"
+    },
+    {
+      "id": 3,
+      "name_zh": "阿富汗",
+      "prefixes": [
+        "YA",
+        "T6"
+      ],
+      "prefix_regex": "^(YA|T6)[A-Z0-9/]*$"
+    },
+    {
+      "id": 400,
+      "name_zh": "阿尔及利亚",
+      "prefixes": [
+        "7T",
+        "7U",
+        "7V",
+        "7W",
+        "7X",
+        "7Y"
+      ],
+      "prefix_regex": "^7[T-Y][A-Z0-9/]*$"
+    },
+    {
+      "id": 7,
+      "name_zh": "阿尔巴尼亚",
+      "prefixes": [
+        "ZA"
+      ],
+      "prefix_regex": "^ZA[A-Z0-9/]*$"
+    },
+    {
+      "id": 391,
+      "name_zh": "阿拉伯联合酋长国",
+      "prefixes": [
+        "A6"
+      ],
+      "prefix_regex": "^A6[A-Z0-9/]*$"
+    },
+    {
+      "id": 370,
+      "name_zh": "阿曼",
+      "prefixes": [
+        "A4"
+      ],
+      "prefix_regex": "^A4[A-Z0-9/]*$"
+    },
+    {
+      "id": 100,
+      "name_zh": "阿根廷",
+      "prefixes": [
+        "AY",
+        "AZ",
+        "LO",
+        "LP",
+        "LQ",
+        "LR",
+        "LS",
+        "LT",
+        "LU",
+        "LV",
+        "LW"
+      ],
+      "prefix_regex": "^L[O-W]|AY|AZ[A-Z0-9/]*$"
+    },
+    {
+      "id": 91,
+      "name_zh": "阿鲁巴",
+      "prefixes": [
+        "P4"
+      ],
+      "prefix_regex": "^P4[A-Z0-9/]*$"
+    },
+    {
+      "id": 137,
+      "name_zh": "韩国",
+      "prefixes": [
+        "DS",
+        "DT",
+        "HL",
+        "6K",
+        "6L",
+        "6M",
+        "6N",
+        "D7",
+        "D8"
+      ],
+      "prefix_regex": "^(DT|DS|HL|6[K-N]|D[78])[A-Z0-9/]*$"
+    },
+    {
+      "id": 159,
+      "name_zh": "马尔代夫",
+      "prefixes": [
+        "8Q"
+      ],
+      "prefix_regex": "^8Q[A-Z0-9/]*$"
+    },
+    {
+      "id": 114,
+      "name_zh": "马恩岛",
+      "prefixes": [
+        "GD",
+        "GT"
+      ],
+      "prefix_regex": "^G[DT][A-Z0-9/]*$"
+    },
+    {
+      "id": 440,
+      "name_zh": "马拉维",
+      "prefixes": [
+        "7Q"
+      ],
+      "prefix_regex": "^7Q[A-Z0-9/]*$"
+    },
+    {
+      "id": 84,
+      "name_zh": "马提尼克",
+      "prefixes": [
+        "FM",
+        "TO"
+      ],
+      "prefix_regex": "^(FM|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 299,
+      "name_zh": "马来西亚（9M2）",
+      "prefixes": [
+        "9M2",
+        "9M4"
+      ],
+      "prefix_regex": "^9M[24][A-Z0-9/]*$"
+    },
+    {
+      "id": 46,
+      "name_zh": "马来西亚（9M6）",
+      "prefixes": [
+        "9M6",
+        "9M8"
+      ],
+      "prefix_regex": "^9M[68][A-Z0-9/]*$"
+    },
+    {
+      "id": 169,
+      "name_zh": "马约特",
+      "prefixes": [
+        "FH",
+        "TO"
+      ],
+      "prefix_regex": "^(FH|TO)[A-Z0-9/]*$"
+    },
+    {
+      "id": 168,
+      "name_zh": "马绍尔群岛",
+      "prefixes": [
+        "V7"
+      ],
+      "prefix_regex": "^V7[A-Z0-9/]*$"
+    },
+    {
+      "id": 257,
+      "name_zh": "马耳他",
+      "prefixes": [
+        "9H"
+      ],
+      "prefix_regex": "^9H[A-Z0-9/]*$"
+    },
+    {
+      "id": 438,
+      "name_zh": "马达加斯加",
+      "prefixes": [
+        "5R"
+      ],
+      "prefix_regex": "^5R[A-Z0-9/]*$"
+    },
+    {
+      "id": 442,
+      "name_zh": "马里",
+      "prefixes": [
+        "TZ"
+      ],
+      "prefix_regex": "^TZ[A-Z0-9/]*$"
+    },
+    {
+      "id": 354,
+      "name_zh": "黎巴嫩",
+      "prefixes": [
+        "OD"
+      ],
+      "prefix_regex": "^OD[A-Z0-9/]*$"
+    },
+    {
+      "id": 514,
+      "name_zh": "黑山",
+      "prefixes": [
+        "4O"
+      ],
+      "prefix_regex": "^4O[A-Z0-9/]*$"
+    }
+  ]
+}
