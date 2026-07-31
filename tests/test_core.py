@@ -45,7 +45,7 @@ def test_rejects_unknown_character():
 
 
 def test_rejects_invalid_number_style():
-    with pytest.raises(ValueError, match="数字编码"):
+    with pytest.raises(ValueError, match="普通数字.*缩短数字"):
         text_to_tokens("123", "other")
 
 
@@ -75,7 +75,7 @@ def test_farnsworth_preserves_tones_and_expands_spacing():
 
 
 def test_farnsworth_requires_lower_effective_speed():
-    with pytest.raises(ValueError, match="有效速度"):
+    with pytest.raises(ValueError, match="间隔降速"):
         build_timeline(text_to_tokens("TEST"), 15, effective_wpm=15)
 
 

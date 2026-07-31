@@ -51,7 +51,7 @@ def test_rejects_farnsworth_speed_not_lower_than_character_speed():
         character_wpm=15,
         effective_wpm=15,
     )
-    with pytest.raises(ValueError, match="有效速度"):
+    with pytest.raises(ValueError, match="间隔降速"):
         validate_settings(settings)
 
 
@@ -59,3 +59,22 @@ def test_invalid_values_in_config_fall_back_to_defaults(tmp_path: Path):
     path = tmp_path / "settings.json"
     path.write_text('{"frequency_hz": 5000}', encoding="utf-8")
     assert load_settings(path) == AppSettings()
+
+
+def test_non_member_rejects_more_than_five_minutes():
+    with pytest.raises(ValueError, match="永久会员"):
+        validate_settings(replace(AppSettings(), duration_seconds=301))
+
+
+def test_member_has_no_product_duration_limit():
+    validate_settings(
+        replace(AppSettings(), duration_seconds=86_400),
+        is_member=True,
+    )
+
+
+def test_member_duration_survives_settings_round_trip(tmp_path: Path):
+    path = tmp_path / "settings.json"
+    expected = replace(AppSettings(), duration_seconds=86_400)
+    save_settings(expected, path)
+    assert load_settings(path) == expected

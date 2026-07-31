@@ -46,7 +46,7 @@ class TimingEvent:
 def text_to_tokens(text: str, number_style: str = "long") -> list[MorseToken]:
     """把文本转换为摩斯字符；遇到未知字符时明确报错。"""
     if number_style not in {"long", "short"}:
-        raise ValueError("数字编码必须是 long 或 short")
+        raise ValueError("数字编码必须选择普通数字或缩短数字")
 
     source = text.upper()
     tokens: list[MorseToken] = []
@@ -85,9 +85,9 @@ def build_timeline(
     if character_wpm <= 0:
         raise ValueError("字符速度必须大于 0")
     if effective_wpm is not None and effective_wpm >= character_wpm:
-        raise ValueError("Farnsworth 有效速度必须低于字符速度")
+        raise ValueError("间隔降速必须低于字符速度")
     if effective_wpm is not None and effective_wpm <= 0:
-        raise ValueError("Farnsworth 有效速度必须大于 0")
+        raise ValueError("间隔降速必须大于 0")
 
     dit = 1.2 / character_wpm
     spacing_unit = dit
@@ -129,7 +129,7 @@ def render_pcm(
 ) -> bytes:
     """把时间轴渲染为 16 位单声道 PCM，并平滑每段音调的边缘。"""
     if not 300 <= frequency <= 1200:
-        raise ValueError("音调频率必须在 300 至 1200 Hz 之间")
+        raise ValueError("音调频率必须在 300 至 1200 赫兹之间")
     if sample_rate <= 0:
         raise ValueError("采样率必须大于 0")
     if not 0 < amplitude <= 1:
