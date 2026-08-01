@@ -19,9 +19,13 @@ a = Analysis(
     datas=[
         (str(tcl_root / "tcl8.6"), "_tcl_data"),
         (str(tcl_root / "tk8.6"), "_tk_data"),
+        ("morse_app/public_key.txt", "morse_app"),
+        ("morse_app/data/global_callsign_rules.json", "morse_app/data"),
+        ("licenses/dxcc-json-APACHE-2.0.txt", "licenses"),
     ],
     hiddenimports=[
         "lameenc",
+        "cryptography",
         "tkinter",
         "tkinter.filedialog",
         "tkinter.messagebox",

@@ -19,9 +19,8 @@ def _strings(value):
             yield from _strings(item)
 
 
-def test_static_user_visible_gui_text_is_chinese():
-    source = Path("morse_app/gui.py").read_text(encoding="utf-8")
-    tree = ast.parse(source)
+def _visible_text(path: str):
+    tree = ast.parse(Path(path).read_text(encoding="utf-8"))
     visible = []
     for node in ast.walk(tree):
         if not isinstance(node, ast.Call):
@@ -37,6 +36,13 @@ def test_static_user_visible_gui_text_is_chinese():
             for argument in node.args[:2]:
                 visible.extend(_strings(argument))
 
+    return visible
+
+
+def test_static_user_visible_gui_text_is_chinese():
+    visible = _visible_text("morse_app/gui.py") + _visible_text(
+        "morse_app/license_admin_gui.py"
+    )
     offenders = [text for text in visible if FORBIDDEN_VISIBLE_ENGLISH.search(text)]
     assert offenders == []
 

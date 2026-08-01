@@ -1,27 +1,27 @@
-$ErrorActionPreference = "Stop"
+﻿$ErrorActionPreference = "Stop"
 
 $ProjectRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $VenvPython = Join-Path $ProjectRoot ".venv\Scripts\python.exe"
 if (-not (Test-Path -LiteralPath $VenvPython)) {
-    throw "Missing .venv. Create it and install requirements-dev.txt first."
+    throw "没有找到项目虚拟环境，请先创建并安装开发依赖。"
 }
 
 & $VenvPython -c "import PyInstaller, cryptography, lameenc"
 if ($LASTEXITCODE -ne 0) {
-    throw "Missing build dependencies. Run: .\.venv\Scripts\python.exe -m pip install -r requirements-dev.txt"
+    throw "缺少构建依赖，请先安装开发依赖。"
 }
 
 Push-Location $ProjectRoot
 try {
     & $VenvPython -m PyInstaller --clean --noconfirm ".\morse-generator.spec"
     if ($LASTEXITCODE -ne 0) {
-        throw "PyInstaller failed with exit code $LASTEXITCODE"
+        throw "主程序构建失败，退出代码：$LASTEXITCODE"
     }
     $Output = Get-ChildItem -LiteralPath (Join-Path $ProjectRoot "dist") -Filter "*.exe" | Select-Object -First 1
     if ($null -eq $Output) {
-        throw "Build finished but no EXE was found in dist."
+        throw "构建结束，但没有找到主程序。"
     }
-    Write-Host "Build succeeded: $($Output.FullName)"
+    Write-Host "主程序构建成功：$($Output.FullName)"
 
     $OwnerKey = Join-Path $ProjectRoot "owner-private-key.txt"
     if (-not (Test-Path -LiteralPath $OwnerKey)) {
