@@ -5,4 +5,6 @@ __pycache__/
 .venv/
 build/
 dist/
+owner-private-key.txt
+owner-release/
 *.spec.bak

@@ -1,1 +1,2 @@
 lameenc==1.8.4
+cryptography==49.0.0
