@@ -3,14 +3,16 @@ from pathlib import Path
 
 import pytest
 
-from morse_app.core import build_timeline, render_pcm, text_to_tokens
+from morse_app.core import build_timeline, iter_pcm_chunks, render_pcm, text_to_tokens
 from morse_app.exporters import (
     ExportRequest,
     export_training_set,
     reserve_output_paths,
     write_lrc,
     write_mp3,
+    write_mp3_chunks,
     write_wav,
+    write_wav_chunks,
 )
 
 
@@ -41,10 +43,32 @@ def test_lrc_uses_timeline_start_times(tmp_path: Path):
     path = tmp_path / "timing.lrc"
     tokens = text_to_tokens("EE")
     timeline = build_timeline(tokens, 20)
-    write_lrc(path, tokens, timeline, {"title": "测试", "wpm": 20})
+    write_lrc(path, tokens, timeline, {"wpm": 20})
     text = path.read_text(encoding="utf-8")
     assert "[00:00.000] E (.)" in text
     assert "[00:00.240] E (.)" in text
+    assert "摩斯电码练习" in text
+    assert "每分钟 20 字" in text
+    assert "Morse Code Practice" not in text
+    assert "WPM" not in text
+
+
+def test_pcm_chunks_match_single_render():
+    timeline = build_timeline(text_to_tokens("PARIS PARIS"), 20)
+    expected = render_pcm(timeline, 700)
+    chunks = list(iter_pcm_chunks(timeline, 700, chunk_seconds=1))
+    assert b"".join(chunks) == expected
+    assert max(map(len, chunks)) <= 44_100 * 2
+
+
+def test_chunk_writers_create_audio(tmp_path: Path):
+    timeline = build_timeline(text_to_tokens("TEST"), 20)
+    wav_path = tmp_path / "分块.wav"
+    mp3_path = tmp_path / "分块.mp3"
+    write_wav_chunks(wav_path, iter_pcm_chunks(timeline, 700, chunk_seconds=1))
+    write_mp3_chunks(mp3_path, iter_pcm_chunks(timeline, 700, chunk_seconds=1))
+    assert wav_path.stat().st_size > 44
+    assert mp3_path.stat().st_size > 100
 
 
 def test_mp3_encoder_writes_mpeg_data(tmp_path: Path):
@@ -62,7 +86,7 @@ def test_export_training_set_creates_audio_and_lrc(tmp_path: Path):
         ExportRequest(
             text="CQ TEST",
             output_dir=tmp_path,
-            stem="字母_20wpm_700Hz",
+            stem="字母_每分钟20字_700赫兹",
             output_format="wav",
             character_wpm=20,
             effective_wpm=None,
@@ -88,5 +112,5 @@ def test_export_rejects_invalid_format(tmp_path: Path):
         number_style="long",
         simulated_callsign=False,
     )
-    with pytest.raises(ValueError, match="WAV.*MP3"):
+    with pytest.raises(ValueError, match="波形音频.*压缩音频"):
         export_training_set(request)

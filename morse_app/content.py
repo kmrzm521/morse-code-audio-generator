@@ -39,18 +39,36 @@ def generate_until_duration(
     rng: random.Random,
 ) -> str:
     """追加完整组，直到总时长首次达到或超过目标。"""
+    return repeat_until_duration(
+        lambda: generate_group(mode, group_size, rng),
+        target_seconds,
+        timing_options,
+    )
+
+
+def repeat_until_duration(factory, target_seconds: float, timing_options: dict) -> str:
+    """逐项计算时长，避免长内容生成时反复重算已有部分。"""
     if target_seconds <= 0:
         raise ValueError("生成时长必须大于 0")
-    groups: list[str] = []
-    while True:
-        groups.append(generate_group(mode, group_size, rng))
-        text = " ".join(groups)
-        tokens = text_to_tokens(text, timing_options.get("number_style", "long"))
+    character_wpm = timing_options["character_wpm"]
+    effective_wpm = timing_options.get("effective_wpm")
+    number_style = timing_options.get("number_style", "long")
+
+    def duration(text: str) -> float:
         events = build_timeline(
-            tokens,
-            timing_options["character_wpm"],
-            timing_options.get("effective_wpm"),
+            text_to_tokens(text, number_style),
+            character_wpm,
+            effective_wpm,
         )
-        duration = events[-1].start + events[-1].duration if events else 0.0
-        if duration >= target_seconds:
-            return text
+        return events[-1].start + events[-1].duration if events else 0.0
+
+    word_gap = duration("E E") - 2 * duration("E")
+    items: list[str] = []
+    total_duration = 0.0
+    while True:
+        item = factory()
+        item_duration = duration(item)
+        total_duration += item_duration + (word_gap if items else 0.0)
+        items.append(item)
+        if total_duration >= target_seconds:
+            return " ".join(items)

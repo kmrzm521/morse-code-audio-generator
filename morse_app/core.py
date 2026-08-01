@@ -5,7 +5,7 @@ from __future__ import annotations
 from array import array
 from dataclasses import dataclass
 from math import cos, pi, sin
-from typing import Literal
+from typing import Iterator, Literal
 
 
 MORSE_CODES = {
@@ -128,34 +128,66 @@ def render_pcm(
     amplitude: float = 0.8,
 ) -> bytes:
     """把时间轴渲染为 16 位单声道 PCM，并平滑每段音调的边缘。"""
+    return b"".join(
+        iter_pcm_chunks(
+            events,
+            frequency,
+            sample_rate=sample_rate,
+            amplitude=amplitude,
+            chunk_seconds=3600,
+        )
+    )
+
+
+def iter_pcm_chunks(
+    events: list[TimingEvent],
+    frequency: float,
+    *,
+    sample_rate: int = 44_100,
+    amplitude: float = 0.8,
+    chunk_seconds: float = 10,
+) -> Iterator[bytes]:
+    """按固定时长分块渲染 16 位单声道 PCM。"""
     if not 300 <= frequency <= 1200:
         raise ValueError("音调频率必须在 300 至 1200 赫兹之间")
     if sample_rate <= 0:
         raise ValueError("采样率必须大于 0")
     if not 0 < amplitude <= 1:
         raise ValueError("振幅必须大于 0 且不超过 1")
+    if chunk_seconds <= 0:
+        raise ValueError("音频分块时长必须大于 0")
     if not events:
-        return b""
+        return
 
     total_samples = round((events[-1].start + events[-1].duration) * sample_rate)
-    samples = array("h", [0]) * total_samples
     peak = int(32767 * amplitude)
     max_fade_samples = round(sample_rate * 0.005)
+    chunk_samples = max(1, round(sample_rate * chunk_seconds))
+    tones = [event for event in events if event.kind == "tone"]
 
-    for event in events:
-        if event.kind != "tone":
-            continue
-        start = round(event.start * sample_rate)
-        end = round((event.start + event.duration) * sample_rate)
-        count = max(0, end - start)
-        fade_samples = min(max_fade_samples, count // 2)
-        for offset in range(count):
-            envelope = 1.0
-            if fade_samples:
-                edge_distance = min(offset, count - 1 - offset)
-                if edge_distance < fade_samples:
-                    envelope = 0.5 - 0.5 * cos(pi * edge_distance / fade_samples)
-            value = peak * envelope * sin(2.0 * pi * frequency * offset / sample_rate)
-            samples[start + offset] = round(value)
-
-    return samples.tobytes()
+    for chunk_start in range(0, total_samples, chunk_samples):
+        chunk_end = min(total_samples, chunk_start + chunk_samples)
+        samples = array("h", [0]) * (chunk_end - chunk_start)
+        for event in tones:
+            event_start = round(event.start * sample_rate)
+            event_end = round((event.start + event.duration) * sample_rate)
+            if event_end <= chunk_start or event_start >= chunk_end:
+                continue
+            count = max(0, event_end - event_start)
+            fade_samples = min(max_fade_samples, count // 2)
+            overlap_start = max(event_start, chunk_start)
+            overlap_end = min(event_end, chunk_end)
+            for sample_index in range(overlap_start, overlap_end):
+                offset = sample_index - event_start
+                envelope = 1.0
+                if fade_samples:
+                    edge_distance = min(offset, count - 1 - offset)
+                    if edge_distance < fade_samples:
+                        envelope = 0.5 - 0.5 * cos(
+                            pi * edge_distance / fade_samples
+                        )
+                value = peak * envelope * sin(
+                    2.0 * pi * frequency * offset / sample_rate
+                )
+                samples[sample_index - chunk_start] = round(value)
+        yield samples.tobytes()

@@ -2,6 +2,7 @@ import random
 
 import pytest
 
+import morse_app.content as content_module
 from morse_app.content import generate_group, generate_until_duration
 
 
@@ -33,3 +34,23 @@ def test_generate_until_duration_keeps_complete_groups():
         rng=random.Random(4),
     )
     assert all(len(group) == 5 for group in text.split())
+
+
+def test_long_generation_measures_each_group_independently(monkeypatch):
+    measured_token_counts = []
+    original = content_module.build_timeline
+
+    def recording_build_timeline(tokens, *args, **kwargs):
+        measured_token_counts.append(len(tokens))
+        return original(tokens, *args, **kwargs)
+
+    monkeypatch.setattr(content_module, "build_timeline", recording_build_timeline)
+    generate_until_duration(
+        "letters",
+        group_size=5,
+        target_seconds=30,
+        timing_options={"character_wpm": 20, "number_style": "long"},
+        rng=random.Random(4),
+    )
+
+    assert max(measured_token_counts) <= 5

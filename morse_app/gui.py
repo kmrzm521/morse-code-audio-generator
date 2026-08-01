@@ -18,8 +18,7 @@ from .callsigns import (
     generate_global_callsign,
 )
 from .callsign_rules import global_entity_names
-from .content import generate_until_duration
-from .core import build_timeline, text_to_tokens
+from .content import generate_until_duration, repeat_until_duration
 from .exporters import ExportRequest, ExportResult, export_training_set
 from .licensing import (
     is_current_machine_member,
@@ -62,11 +61,6 @@ def _number(values: Mapping[str, object], name: str, display: str, cast):
         raise ValueError(f"{display}必须是数字") from error
 
 
-def _duration(text: str, wpm: int, effective_wpm: int | None, number_style: str) -> float:
-    events = build_timeline(text_to_tokens(text, number_style), wpm, effective_wpm)
-    return events[-1].start + events[-1].duration if events else 0.0
-
-
 def _repeat_callsigns(
     factory,
     target_seconds: int,
@@ -74,12 +68,15 @@ def _repeat_callsigns(
     effective_wpm: int | None,
     number_style: str,
 ) -> str:
-    calls: list[str] = []
-    while True:
-        calls.append(factory())
-        text = " ".join(calls)
-        if _duration(text, wpm, effective_wpm, number_style) >= target_seconds:
-            return text
+    return repeat_until_duration(
+        factory,
+        target_seconds,
+        {
+            "character_wpm": wpm,
+            "effective_wpm": effective_wpm,
+            "number_style": number_style,
+        },
+    )
 
 
 def build_generation_request(
