@@ -35,7 +35,7 @@ def default_settings_path() -> Path:
 def validate_settings(settings: AppSettings, *, is_member: bool = False) -> None:
     valid_modes = {
         "letters", "numbers", "mixed", "punctuation", "prosigns", "q_codes",
-        "chinese_callsign", "global_callsign", "local_callsigns", "custom",
+        "chinese_callsign", "global_callsign", "custom",
     }
     if settings.mode not in valid_modes:
         raise ValueError("内容类型无效")

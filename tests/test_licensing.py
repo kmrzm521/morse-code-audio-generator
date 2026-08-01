@@ -6,6 +6,7 @@ from cryptography.hazmat.primitives.asymmetric.ed25519 import Ed25519PrivateKey
 
 from morse_app.licensing import (
     load_embedded_public_key,
+    is_current_machine_member,
     load_saved_activation,
     machine_code,
     save_activation,
@@ -69,3 +70,19 @@ def test_missing_activation_file_is_empty(tmp_path):
 def test_embedded_public_key_is_valid_raw_key():
     public_key = load_embedded_public_key()
     assert len(public_key) == 32
+
+
+def test_current_machine_member_uses_saved_code(ed25519_keys, tmp_path):
+    private, public = ed25519_keys
+    activation_path = tmp_path / "授权.txt"
+    save_activation(sign_activation(machine_code("设备一"), private), activation_path)
+    assert is_current_machine_member(
+        activation_path=activation_path,
+        raw_machine_id="设备一",
+        public_key=public,
+    )
+    assert not is_current_machine_member(
+        activation_path=activation_path,
+        raw_machine_id="设备二",
+        public_key=public,
+    )

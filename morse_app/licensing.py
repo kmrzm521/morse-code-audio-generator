@@ -114,3 +114,22 @@ def save_activation(code: str, path: Path | None = None) -> None:
         os.replace(temporary, target)
     finally:
         temporary.unlink(missing_ok=True)
+
+
+def is_current_machine_member(
+    *,
+    activation_path: Path | None = None,
+    raw_machine_id: str | None = None,
+    public_key: bytes | None = None,
+) -> bool:
+    try:
+        current_machine = machine_code(raw_machine_id)
+        verification_key = public_key or load_embedded_public_key()
+        saved_code = load_saved_activation(activation_path)
+        return bool(saved_code) and verify_activation(
+            saved_code,
+            current_machine,
+            verification_key,
+        )
+    except ValueError:
+        return False

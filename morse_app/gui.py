@@ -16,11 +16,18 @@ from .callsigns import (
     CHINA_PROVINCE_RANGES,
     generate_chinese_callsign,
     generate_global_callsign,
-    load_callsigns,
 )
+from .callsign_rules import global_entity_names
 from .content import generate_until_duration
 from .core import build_timeline, text_to_tokens
 from .exporters import ExportRequest, ExportResult, export_training_set
+from .licensing import (
+    is_current_machine_member,
+    load_embedded_public_key,
+    machine_code,
+    save_activation,
+    verify_activation,
+)
 from .settings import AppSettings, load_settings, save_settings, validate_settings
 
 
@@ -30,14 +37,16 @@ MODE_LABELS = {
     "字母数字混合": "mixed",
     "标点符号": "punctuation",
     "通联符号": "prosigns",
-    "Q 简语": "q_codes",
+    "无线电简语": "q_codes",
     "中国模拟呼号": "chinese_callsign",
     "全球模拟呼号": "global_callsign",
-    "本地真实呼号表": "local_callsigns",
     "自定义文本": "custom",
 }
 MODE_NAMES = {value: key for key, value in MODE_LABELS.items()}
-COUNTRIES = ("中国", "美国", "日本", "德国", "俄罗斯", "英国", "加拿大", "澳大利亚")
+NUMBER_STYLE_LABELS = {"普通数字": "long", "缩短数字": "short"}
+OUTPUT_FORMAT_LABELS = {"压缩音频": "mp3", "波形音频": "wav"}
+RANDOM_GLOBAL_ENTITY = "随机全球地区"
+COUNTRIES = (RANDOM_GLOBAL_ENTITY, *global_entity_names())
 
 
 @dataclass(frozen=True, slots=True)
@@ -76,6 +85,8 @@ def _repeat_callsigns(
 def build_generation_request(
     values: Mapping[str, object],
     rng: random.Random | None = None,
+    *,
+    is_member: bool = False,
 ) -> GenerationRequest:
     """校验表单并一次性确定本次生成内容。"""
     rng = rng or random.Random()
@@ -83,12 +94,14 @@ def build_generation_request(
     group_size = _number(values, "group_size", "每组字符数", int)
     duration_seconds = _number(values, "duration_seconds", "生成时长", int)
     character_wpm = _number(values, "character_wpm", "字符速度", int)
-    effective_value = _number(values, "effective_wpm", "有效速度", int)
+    effective_value = _number(values, "effective_wpm", "间隔降速", int)
     frequency_hz = _number(values, "frequency_hz", "音调频率", int)
     farnsworth_enabled = bool(values.get("farnsworth_enabled", False))
     effective_wpm = effective_value if farnsworth_enabled else None
-    number_style = str(values.get("number_style", "long"))
-    output_format = str(values.get("output_format", "mp3")).lower()
+    number_style_value = str(values.get("number_style", "普通数字"))
+    number_style = NUMBER_STYLE_LABELS.get(number_style_value, number_style_value)
+    output_format_value = str(values.get("output_format", "压缩音频"))
+    output_format = OUTPUT_FORMAT_LABELS.get(output_format_value, output_format_value).lower()
     output_dir_value = str(values.get("output_dir", "")).strip()
     if not output_dir_value:
         raise ValueError("请选择输出目录")
@@ -110,7 +123,7 @@ def build_generation_request(
         station_type=str(values.get("station_type", "G")),
         callsign_file=str(values.get("callsign_file", "")),
     )
-    validate_settings(settings)
+    validate_settings(settings, is_member=is_member)
     simulated = False
     if mode == "custom":
         text = str(values.get("custom_text", "")).strip().upper()
@@ -124,18 +137,12 @@ def build_generation_request(
         )
     elif mode == "global_callsign":
         simulated = True
+        entity = settings.country
+        if entity == RANDOM_GLOBAL_ENTITY:
+            entity = rng.choice(global_entity_names())
         text = _repeat_callsigns(
-            lambda: generate_global_callsign(settings.country, rng),
+            lambda: generate_global_callsign(entity, rng),
             duration_seconds, character_wpm, effective_wpm, number_style,
-        )
-    elif mode == "local_callsigns":
-        callsign_path = Path(settings.callsign_file)
-        if not callsign_path.is_file():
-            raise ValueError("请选择存在的本地呼号表")
-        calls = load_callsigns(callsign_path)
-        text = _repeat_callsigns(
-            lambda: rng.choice(calls), duration_seconds, character_wpm,
-            effective_wpm, number_style,
         )
     else:
         text = generate_until_duration(
@@ -149,7 +156,7 @@ def build_generation_request(
         )
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    stem = f"{MODE_NAMES[mode]}_{character_wpm}wpm_{frequency_hz}Hz_{timestamp}"
+    stem = f"{MODE_NAMES[mode]}_每分钟{character_wpm}字_{frequency_hz}赫兹_{timestamp}"
     export = ExportRequest(
         text=text,
         output_dir=output_dir,
@@ -169,13 +176,14 @@ class MorseGeneratorApp:
 
     def __init__(self, root: tk.Tk):
         self.root = root
-        self.root.title("摩斯电码生成器 v6.0（离线版）")
+        self.root.title("摩斯电码生成器第六版（离线版）")
         self.root.geometry("820x760")
         self.root.minsize(760, 680)
         self.executor = ThreadPoolExecutor(max_workers=1, thread_name_prefix="morse-export")
         self.future: Future[ExportResult] | None = None
         self.last_output_dir: Path | None = None
         self.settings = load_settings()
+        self.is_member = is_current_machine_member()
         self.variables: dict[str, tk.Variable] = {}
         self._build_ui()
         self._load_variables()
@@ -202,6 +210,20 @@ class MorseGeneratorApp:
         self.mode_box.bind("<<ComboboxSelected>>", lambda _event: self._update_control_states())
 
         row += 1
+        membership = ttk.Frame(outer)
+        membership.grid(row=row, column=0, columnspan=2, sticky="ew", pady=4)
+        self.member_status_var = tk.StringVar(
+            value="永久会员" if self.is_member else "普通用户（每次最多五分钟）"
+        )
+        ttk.Label(membership, text="会员状态").pack(side="left")
+        ttk.Label(membership, textvariable=self.member_status_var).pack(
+            side="left", padx=(8, 16)
+        )
+        ttk.Button(membership, text="会员激活", command=self._show_activation).pack(
+            side="left"
+        )
+
+        row += 1
         options = ttk.Frame(outer)
         options.grid(row=row, column=0, columnspan=2, sticky="ew")
         for column in range(6):
@@ -209,31 +231,31 @@ class MorseGeneratorApp:
         ttk.Label(options, text="每组字符").grid(row=0, column=0)
         ttk.Spinbox(options, from_=1, to=20, width=7, textvariable=self._var("group_size", "5")).grid(row=0, column=1)
         ttk.Label(options, text="时长（秒）").grid(row=0, column=2)
-        ttk.Spinbox(options, from_=5, to=3600, width=8, textvariable=self._var("duration_seconds", "60")).grid(row=0, column=3)
-        ttk.Label(options, text="WPM").grid(row=0, column=4)
+        ttk.Entry(options, width=8, textvariable=self._var("duration_seconds", "60")).grid(row=0, column=3)
+        ttk.Label(options, text="字符速度（字/分钟）").grid(row=0, column=4)
         ttk.Spinbox(options, from_=5, to=60, width=7, textvariable=self._var("character_wpm", "15")).grid(row=0, column=5)
 
         row += 1
         timing = ttk.Frame(outer)
         timing.grid(row=row, column=0, columnspan=2, sticky="ew", pady=5)
         self.farnsworth_check = ttk.Checkbutton(
-            timing, text="Farnsworth", variable=self._var("farnsworth_enabled", False, tk.BooleanVar),
+            timing, text="间隔降速", variable=self._var("farnsworth_enabled", False, tk.BooleanVar),
             command=self._update_control_states,
         )
         self.farnsworth_check.pack(side="left")
-        ttk.Label(timing, text="有效 WPM").pack(side="left", padx=(12, 4))
+        ttk.Label(timing, text="间隔速度（字/分钟）").pack(side="left", padx=(12, 4))
         self.effective_spin = ttk.Spinbox(timing, from_=1, to=59, width=7, textvariable=self._var("effective_wpm", "10"))
         self.effective_spin.pack(side="left")
-        ttk.Label(timing, text="音调 Hz").pack(side="left", padx=(20, 4))
+        ttk.Label(timing, text="音调（赫兹）").pack(side="left", padx=(20, 4))
         ttk.Spinbox(timing, from_=300, to=1200, width=8, textvariable=self._var("frequency_hz", "700")).pack(side="left")
 
         row += 1
         selectors = ttk.Frame(outer)
         selectors.grid(row=row, column=0, columnspan=2, sticky="ew", pady=5)
         ttk.Label(selectors, text="数字编码").pack(side="left")
-        ttk.Combobox(selectors, state="readonly", width=8, values=("long", "short"), textvariable=self._var("number_style", "long")).pack(side="left", padx=5)
+        ttk.Combobox(selectors, state="readonly", width=10, values=tuple(NUMBER_STYLE_LABELS), textvariable=self._var("number_style", "普通数字")).pack(side="left", padx=5)
         ttk.Label(selectors, text="格式").pack(side="left", padx=(20, 4))
-        ttk.Combobox(selectors, state="readonly", width=7, values=("mp3", "wav"), textvariable=self._var("output_format", "mp3")).pack(side="left")
+        ttk.Combobox(selectors, state="readonly", width=10, values=tuple(OUTPUT_FORMAT_LABELS), textvariable=self._var("output_format", "压缩音频")).pack(side="left")
 
         row += 1
         self.callsign_frame = ttk.LabelFrame(outer, text="呼号设置", padding=8)
@@ -244,14 +266,13 @@ class MorseGeneratorApp:
         ttk.Label(self.callsign_frame, text="台站字母").grid(row=0, column=2)
         self.station_box = ttk.Combobox(self.callsign_frame, state="readonly", values=tuple("GHIDABCEFKLR"), textvariable=self._var("station_type", "G"), width=6)
         self.station_box.grid(row=0, column=3, padx=5)
-        ttk.Label(self.callsign_frame, text="国家").grid(row=0, column=4)
-        self.country_box = ttk.Combobox(self.callsign_frame, state="readonly", values=COUNTRIES, textvariable=self._var("country", "中国"), width=10)
+        ttk.Label(self.callsign_frame, text="国家或地区").grid(row=0, column=4)
+        self.country_box = ttk.Combobox(self.callsign_frame, state="readonly", values=COUNTRIES, textvariable=self._var("country", "中国"), width=30)
         self.country_box.grid(row=0, column=5, padx=5)
-        self.callsign_entry = ttk.Entry(self.callsign_frame, textvariable=self._var("callsign_file", ""))
-        self.callsign_entry.grid(row=1, column=0, columnspan=5, sticky="ew", pady=(8, 0))
-        self.callsign_frame.columnconfigure(4, weight=1)
-        self.callsign_browse = ttk.Button(self.callsign_frame, text="选择呼号表", command=self._choose_callsign_file)
-        self.callsign_browse.grid(row=1, column=5, pady=(8, 0))
+        ttk.Label(
+            self.callsign_frame,
+            text="按国际前缀及地区格式模拟生成，不代表真实签发",
+        ).grid(row=1, column=0, columnspan=6, sticky="w", pady=(8, 0))
 
         row += 1
         ttk.Label(outer, text="自定义文本").grid(row=row, column=0, sticky="nw", pady=4)
@@ -281,7 +302,7 @@ class MorseGeneratorApp:
         row += 1
         buttons = ttk.Frame(outer)
         buttons.grid(row=row, column=0, columnspan=2, pady=(10, 0))
-        self.generate_button = ttk.Button(buttons, text="生成音频和 LRC", command=self._start_generation)
+        self.generate_button = ttk.Button(buttons, text="生成音频和同步字幕", command=self._start_generation)
         self.generate_button.pack(side="left", padx=5)
         self.open_button = ttk.Button(buttons, text="打开输出文件夹", command=self._open_output, state="disabled")
         self.open_button.pack(side="left", padx=5)
@@ -292,6 +313,16 @@ class MorseGeneratorApp:
         for name, value in values.items():
             if name in self.variables:
                 self.variables[name].set(value)
+        inverse_number_styles = {value: label for label, value in NUMBER_STYLE_LABELS.items()}
+        inverse_output_formats = {value: label for label, value in OUTPUT_FORMAT_LABELS.items()}
+        self.variables["number_style"].set(
+            inverse_number_styles.get(self.settings.number_style, "普通数字")
+        )
+        self.variables["output_format"].set(
+            inverse_output_formats.get(self.settings.output_format, "压缩音频")
+        )
+        if self.variables["country"].get() not in COUNTRIES:
+            self.variables["country"].set("中国")
         if not self.variables["output_dir"].get():
             self.variables["output_dir"].set(str(Path.home() / "Documents"))
 
@@ -305,9 +336,6 @@ class MorseGeneratorApp:
         self.province_box.configure(state="readonly" if mode == "chinese_callsign" else "disabled")
         self.station_box.configure(state="readonly" if mode == "chinese_callsign" else "disabled")
         self.country_box.configure(state="readonly" if mode == "global_callsign" else "disabled")
-        local_state = "normal" if mode == "local_callsigns" else "disabled"
-        self.callsign_entry.configure(state=local_state)
-        self.callsign_browse.configure(state=local_state)
 
     def _form_values(self) -> dict[str, object]:
         values = {name: variable.get() for name, variable in self.variables.items()}
@@ -320,14 +348,6 @@ class MorseGeneratorApp:
         if chosen:
             self.variables["output_dir"].set(chosen)
 
-    def _choose_callsign_file(self):
-        chosen = filedialog.askopenfilename(
-            title="选择本地呼号表",
-            filetypes=(("呼号表", "*.txt *.csv"), ("所有文件", "*.*")),
-        )
-        if chosen:
-            self.variables["callsign_file"].set(chosen)
-
     def _set_preview(self, text: str):
         self.preview.configure(state="normal")
         self.preview.delete("1.0", "end")
@@ -336,7 +356,10 @@ class MorseGeneratorApp:
 
     def _start_generation(self):
         try:
-            request = build_generation_request(self._form_values())
+            request = build_generation_request(
+                self._form_values(),
+                is_member=self.is_member,
+            )
             settings_values = self._form_values()
             save_settings(AppSettings(
                 mode=self._mode(),
@@ -346,13 +369,13 @@ class MorseGeneratorApp:
                 farnsworth_enabled=bool(settings_values["farnsworth_enabled"]),
                 effective_wpm=int(settings_values["effective_wpm"]),
                 frequency_hz=int(settings_values["frequency_hz"]),
-                number_style=str(settings_values["number_style"]),
-                output_format=str(settings_values["output_format"]),
+                number_style=NUMBER_STYLE_LABELS[str(settings_values["number_style"])],
+                output_format=OUTPUT_FORMAT_LABELS[str(settings_values["output_format"])],
                 output_dir=str(settings_values["output_dir"]),
                 province=str(settings_values["province"]),
                 country=str(settings_values["country"]),
                 station_type=str(settings_values["station_type"]),
-                callsign_file=str(settings_values["callsign_file"]),
+                callsign_file="",
             ))
         except Exception as error:
             messagebox.showerror("参数错误", str(error), parent=self.root)
@@ -385,7 +408,7 @@ class MorseGeneratorApp:
             )
             messagebox.showinfo(
                 "生成成功",
-                f"音频：{result.audio_path}\n歌词：{result.lrc_path}",
+                f"音频：{result.audio_path}\n同步字幕：{result.lrc_path}",
                 parent=self.root,
             )
         finally:
@@ -394,6 +417,61 @@ class MorseGeneratorApp:
     def _open_output(self):
         if self.last_output_dir is not None and self.last_output_dir.is_dir():
             os.startfile(self.last_output_dir)
+
+    def _show_activation(self):
+        window = tk.Toplevel(self.root)
+        window.title("永久会员激活")
+        window.geometry("720x330")
+        window.resizable(False, False)
+        frame = ttk.Frame(window, padding=18)
+        frame.pack(fill="both", expand=True)
+        frame.columnconfigure(1, weight=1)
+
+        try:
+            current_machine = machine_code()
+        except ValueError as error:
+            messagebox.showerror("机器码错误", str(error), parent=window)
+            window.destroy()
+            return
+
+        machine_var = tk.StringVar(value=current_machine)
+        activation_var = tk.StringVar()
+        result_var = tk.StringVar(value="请输入永久激活码")
+        ttk.Label(frame, text="本机机器码").grid(row=0, column=0, sticky="w", pady=8)
+        ttk.Entry(frame, textvariable=machine_var, state="readonly").grid(
+            row=0, column=1, sticky="ew", pady=8
+        )
+
+        def copy_machine_code():
+            window.clipboard_clear()
+            window.clipboard_append(current_machine)
+            result_var.set("机器码已复制")
+
+        ttk.Button(frame, text="复制机器码", command=copy_machine_code).grid(
+            row=1, column=0, columnspan=2, pady=6
+        )
+        ttk.Label(frame, text="永久激活码").grid(row=2, column=0, sticky="w", pady=8)
+        ttk.Entry(frame, textvariable=activation_var).grid(
+            row=2, column=1, sticky="ew", pady=8
+        )
+
+        def activate():
+            code = activation_var.get().strip()
+            if not verify_activation(code, current_machine, load_embedded_public_key()):
+                result_var.set("激活码无效或不适用于本机")
+                return
+            save_activation(code)
+            self.is_member = True
+            self.member_status_var.set("永久会员")
+            result_var.set("永久会员激活成功")
+            messagebox.showinfo("激活成功", "本机已成为永久会员", parent=window)
+
+        ttk.Button(frame, text="立即激活", command=activate).grid(
+            row=3, column=0, columnspan=2, pady=8
+        )
+        ttk.Label(frame, textvariable=result_var).grid(
+            row=4, column=0, columnspan=2, sticky="w", pady=8
+        )
 
     def _close(self):
         self.executor.shutdown(wait=False, cancel_futures=True)
