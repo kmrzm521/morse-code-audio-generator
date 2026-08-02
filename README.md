@@ -74,3 +74,7 @@ powershell -ExecutionPolicy Bypass -File .\build.ps1
 ```
 
 公开主程序位于 `dist\摩斯电码生成器.exe`。所有者工具和私钥位于 `owner-release`，该目录不得发送给普通用户。
+
+## 开源许可
+
+本项目代码采用 MIT 许可证。内置全球呼号规则快照保留其 Apache 2.0 许可证和来源说明。
