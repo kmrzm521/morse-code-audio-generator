@@ -5,6 +5,7 @@ from __future__ import annotations
 import os
 import random
 import tkinter as tk
+import webbrowser
 from concurrent.futures import Future, ThreadPoolExecutor
 from dataclasses import asdict, dataclass
 from datetime import datetime
@@ -42,8 +43,18 @@ MODE_LABELS = {
     "自定义文本": "custom",
 }
 MODE_NAMES = {value: key for key, value in MODE_LABELS.items()}
-NUMBER_STYLE_LABELS = {"普通数字": "long", "缩短数字": "short"}
-OUTPUT_FORMAT_LABELS = {"压缩音频": "mp3", "波形音频": "wav"}
+NUMBER_STYLE_LABELS = {"长码": "long", "短码": "short"}
+OUTPUT_FORMAT_LABELS = {"MP3": "mp3", "WAV": "wav"}
+NUMBER_STYLE_ALIASES = {"普通数字": "long", "缩短数字": "short"}
+OUTPUT_FORMAT_ALIASES = {"压缩音频": "mp3", "波形音频": "wav"}
+MEMBERSHIP_EMAIL = "kmrzm520@gmail.com"
+PROJECT_URL = "https://github.com/kmrzm521/morse-code-audio-generator"
+MEMBERSHIP_GUIDE = (
+    "永久会员获取方式：\n"
+    "1. 在 GitHub 赞助本项目。\n"
+    f"2. 将 GitHub 用户名和本机机器码发送到 {MEMBERSHIP_EMAIL}。\n"
+    "3. 赞助记录核实后，永久激活码将通过邮件回复。"
+)
 RANDOM_GLOBAL_ENTITY = "随机全球地区"
 COUNTRIES = (RANDOM_GLOBAL_ENTITY, *global_entity_names())
 
@@ -95,10 +106,14 @@ def build_generation_request(
     frequency_hz = _number(values, "frequency_hz", "音调频率", int)
     farnsworth_enabled = bool(values.get("farnsworth_enabled", False))
     effective_wpm = effective_value if farnsworth_enabled else None
-    number_style_value = str(values.get("number_style", "普通数字"))
-    number_style = NUMBER_STYLE_LABELS.get(number_style_value, number_style_value)
-    output_format_value = str(values.get("output_format", "压缩音频"))
-    output_format = OUTPUT_FORMAT_LABELS.get(output_format_value, output_format_value).lower()
+    number_style_value = str(values.get("number_style", "长码"))
+    number_style = NUMBER_STYLE_LABELS.get(
+        number_style_value, NUMBER_STYLE_ALIASES.get(number_style_value, number_style_value)
+    )
+    output_format_value = str(values.get("output_format", "MP3"))
+    output_format = OUTPUT_FORMAT_LABELS.get(
+        output_format_value, OUTPUT_FORMAT_ALIASES.get(output_format_value, output_format_value)
+    ).lower()
     output_dir_value = str(values.get("output_dir", "")).strip()
     if not output_dir_value:
         raise ValueError("请选择输出目录")
@@ -250,9 +265,9 @@ class MorseGeneratorApp:
         selectors = ttk.Frame(outer)
         selectors.grid(row=row, column=0, columnspan=2, sticky="ew", pady=5)
         ttk.Label(selectors, text="数字编码").pack(side="left")
-        ttk.Combobox(selectors, state="readonly", width=10, values=tuple(NUMBER_STYLE_LABELS), textvariable=self._var("number_style", "普通数字")).pack(side="left", padx=5)
+        ttk.Combobox(selectors, state="readonly", width=10, values=tuple(NUMBER_STYLE_LABELS), textvariable=self._var("number_style", "长码")).pack(side="left", padx=5)
         ttk.Label(selectors, text="格式").pack(side="left", padx=(20, 4))
-        ttk.Combobox(selectors, state="readonly", width=10, values=tuple(OUTPUT_FORMAT_LABELS), textvariable=self._var("output_format", "压缩音频")).pack(side="left")
+        ttk.Combobox(selectors, state="readonly", width=10, values=tuple(OUTPUT_FORMAT_LABELS), textvariable=self._var("output_format", "MP3")).pack(side="left")
 
         row += 1
         self.callsign_frame = ttk.LabelFrame(outer, text="呼号设置", padding=8)
@@ -313,10 +328,10 @@ class MorseGeneratorApp:
         inverse_number_styles = {value: label for label, value in NUMBER_STYLE_LABELS.items()}
         inverse_output_formats = {value: label for label, value in OUTPUT_FORMAT_LABELS.items()}
         self.variables["number_style"].set(
-            inverse_number_styles.get(self.settings.number_style, "普通数字")
+            inverse_number_styles.get(self.settings.number_style, "长码")
         )
         self.variables["output_format"].set(
-            inverse_output_formats.get(self.settings.output_format, "压缩音频")
+            inverse_output_formats.get(self.settings.output_format, "MP3")
         )
         if self.variables["country"].get() not in COUNTRIES:
             self.variables["country"].set("中国")
@@ -418,7 +433,7 @@ class MorseGeneratorApp:
     def _show_activation(self):
         window = tk.Toplevel(self.root)
         window.title("永久会员激活")
-        window.geometry("720x330")
+        window.geometry("720x460")
         window.resizable(False, False)
         frame = ttk.Frame(window, padding=18)
         frame.pack(fill="both", expand=True)
@@ -447,9 +462,29 @@ class MorseGeneratorApp:
         ttk.Button(frame, text="复制机器码", command=copy_machine_code).grid(
             row=1, column=0, columnspan=2, pady=6
         )
-        ttk.Label(frame, text="永久激活码").grid(row=2, column=0, sticky="w", pady=8)
+        ttk.Label(frame, text=MEMBERSHIP_GUIDE, justify="left").grid(
+            row=2, column=0, columnspan=2, sticky="w", pady=8
+        )
+
+        def copy_email():
+            window.clipboard_clear()
+            window.clipboard_append(MEMBERSHIP_EMAIL)
+            result_var.set("邮箱地址已复制")
+
+        contact_buttons = ttk.Frame(frame)
+        contact_buttons.grid(row=3, column=0, columnspan=2, pady=6)
+        ttk.Button(contact_buttons, text="复制邮箱地址", command=copy_email).pack(
+            side="left", padx=5
+        )
+        ttk.Button(
+            contact_buttons,
+            text="打开项目主页",
+            command=lambda: webbrowser.open(PROJECT_URL),
+        ).pack(side="left", padx=5)
+
+        ttk.Label(frame, text="永久激活码").grid(row=4, column=0, sticky="w", pady=8)
         ttk.Entry(frame, textvariable=activation_var).grid(
-            row=2, column=1, sticky="ew", pady=8
+            row=4, column=1, sticky="ew", pady=8
         )
 
         def activate():
@@ -464,10 +499,10 @@ class MorseGeneratorApp:
             messagebox.showinfo("激活成功", "本机已成为永久会员", parent=window)
 
         ttk.Button(frame, text="立即激活", command=activate).grid(
-            row=3, column=0, columnspan=2, pady=8
+            row=5, column=0, columnspan=2, pady=8
         )
         ttk.Label(frame, textvariable=result_var).grid(
-            row=4, column=0, columnspan=2, sticky="w", pady=8
+            row=6, column=0, columnspan=2, sticky="w", pady=8
         )
 
     def _close(self):

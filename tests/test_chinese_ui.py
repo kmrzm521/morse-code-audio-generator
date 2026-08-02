@@ -47,6 +47,7 @@ def test_static_user_visible_gui_text_is_chinese():
     assert offenders == []
 
 
-def test_all_display_mapping_keys_are_chinese():
-    labels = tuple(MODE_LABELS) + tuple(NUMBER_STYLE_LABELS) + tuple(OUTPUT_FORMAT_LABELS)
+def test_display_mapping_keys_only_use_approved_english_formats():
+    labels = tuple(MODE_LABELS) + tuple(NUMBER_STYLE_LABELS)
     assert not any(FORBIDDEN_VISIBLE_ENGLISH.search(label) for label in labels)
+    assert tuple(OUTPUT_FORMAT_LABELS) == ("MP3", "WAV")

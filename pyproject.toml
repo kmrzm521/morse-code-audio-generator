@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "offline-morse-generator"
-version = "6.0.0"
+version = "6.1.0"
 requires-python = ">=3.13"
 dependencies = ["lameenc==1.8.4", "cryptography==49.0.0"]
 
